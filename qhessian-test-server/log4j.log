@@ -1,0 +1,25 @@
+2010-10-24 16:20:21,886 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-10-24 16:20:21,956 [main] INFO  org.mortbay.log - jetty-6.1.24
+2010-10-24 16:20:22,017 [main] ERROR org.mortbay.log - Failed startup of context org.mortbay.jetty.webapp.WebAppContext@eac5a{/,null}
+java.lang.NullPointerException
+	at org.mortbay.resource.Resource.newResource(Resource.java:141)
+	at org.mortbay.resource.Resource.newResource(Resource.java:121)
+	at org.mortbay.jetty.webapp.WebAppContext.resolveWebApp(WebAppContext.java:892)
+	at org.mortbay.jetty.webapp.WebAppContext.getWebInf(WebAppContext.java:800)
+	at org.mortbay.jetty.webapp.WebInfConfiguration.configureClassLoader(WebInfConfiguration.java:62)
+	at org.mortbay.jetty.webapp.WebAppContext.doStart(WebAppContext.java:457)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.handler.HandlerCollection.doStart(HandlerCollection.java:152)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.handler.HandlerWrapper.doStart(HandlerWrapper.java:130)
+	at org.mortbay.jetty.Server.doStart(Server.java:224)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at name.caiiiycuk.test.QHessianTestServer.main(QHessianTestServer.java:51)
+2010-10-24 16:20:22,048 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-10-24 16:22:16,048 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-10-24 16:23:23,937 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-10-24 16:23:23,995 [main] INFO  org.mortbay.log - jetty-6.1.24
+2010-10-24 16:23:24,185 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-10-24 16:24:05,304 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-10-24 16:24:05,362 [main] INFO  org.mortbay.log - jetty-6.1.24
+2010-10-24 16:24:05,530 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
