@@ -46,7 +46,7 @@ public:
 	void invoke(QNetworkAccessManager& networkManager,
 			 	const QUrl& url,
 				QObject* reciver,
-				const char* readySlot,
+				const char* replySlot,
 				const char* errorSlot);
 
 //FIXME: add this methods

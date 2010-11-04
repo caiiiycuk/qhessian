@@ -44,9 +44,9 @@ void QHessianReturnParser::finished() {
 		replyOffset = 0;
 		replySize = array.length();
 
-		for (int i=0; i<array.size(); ++i) {
-			qDebug() << array.at(i);
-		}
+//		for (int i=0; i<array.size(); ++i) {
+//			qDebug() << array.at(i);
+//		}
 
 		emit ready();
 	}

@@ -25,14 +25,14 @@ countUTF8Char (
 void QHessianMethodCall::invoke(QNetworkAccessManager& networkManager,
 		 	const QUrl& url,
 			QObject* reciver,
-			const char* readySlot,
+			const char* replySlot,
 			const char* errorSlot) {
 
 	QNetworkRequest request(url);
 	request.setHeader(QNetworkRequest::ContentTypeHeader, "x-application/hessian");
 
 	QHessianReturnParser* parser = new QHessianReturnParser(networkManager.post(request, toByteArray()));
-	QObject::connect(parser, SIGNAL(ready()), reciver, readySlot);
+	QObject::connect(parser, SIGNAL(ready()), reciver, replySlot);
 	QObject::connect(parser, SIGNAL(error(int, const QString&)), reciver, errorSlot);
 }
 
