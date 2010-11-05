@@ -36,109 +36,96 @@ void QHessianMethodCall::invoke(QNetworkAccessManager& networkManager,
 	QObject::connect(parser, SIGNAL(error(int, const QString&)), reciver, errorSlot);
 }
 
-QHessianMethodCall &QHessianMethodCall::appendNameString(const std::string& name) {
+void QHessianMethodCall::writeName(const std::string& name) {
 	qint16 length = name.length();
 
-	postData.append(static_cast<char>((length >> 8) & 0xFF));
-	postData.append(static_cast<char>(length & 0xFF));
-	postData.append(name.c_str(), length);
-
-	return *this;
+	stream.append(static_cast<char>((length >> 8) & 0xFF));
+	stream.append(static_cast<char>(length & 0xFF));
+	stream.append(name.c_str(), length);
 }
 
-QHessianMethodCall &QHessianMethodCall::appendPropetyName(const QString& name) {
-	if (name.length() > 0) {
-		appendString(name.toStdString());
+void QHessianMethodCall::writePropetyName(const QString& value) {
+	if (value.length() > 0) {
+		writeString(value.toStdString());
 	}
-
-	return *this;
 }
 
-inline QHessianMethodCall &QHessianMethodCall::appendString(const std::string& value) {
+inline void QHessianMethodCall::writeString(const std::string& value) {
     const char* pSrcBegin = value.data();
     const char* pSrcEnd = pSrcBegin + value.size();
     do {
         std::string::size_type count;
         const char* pEnd = countUTF8Char(pSrcBegin, pSrcEnd, count);
-        postData.append((pEnd < pSrcEnd) ? 's' : 'S');
+        stream.append((pEnd < pSrcEnd) ? 's' : 'S');
 
-    	postData.append(static_cast<char>((count >> 8) & 0xFF));
-    	postData.append(static_cast<char>(count & 0xFF));
-        postData.append(pSrcBegin, count);
+    	stream.append(static_cast<char>((count >> 8) & 0xFF));
+    	stream.append(static_cast<char>(count & 0xFF));
+        stream.append(pSrcBegin, count);
         pSrcBegin = pEnd;
     } while (pSrcBegin < pSrcEnd);
+}
 
-    return *this;
+inline void QHessianMethodCall::writeCall() {
+	stream.append('c');
+	stream.append('\x01');
+	stream.append('\x00');
+	stream.append('m');
 }
 
 QHessianMethodCall::QHessianMethodCall(const QString& methodName) {
 	//--begin call;
-	postData.append('c');
-	postData.append('\x01');
-	postData.append('\x00');
-	postData.append('m');
+	writeCall();
 
 	//--write call method name
-	appendNameString(methodName.toStdString());
+	writeName(methodName.toStdString());
 }
 
 QHessianMethodCall::~QHessianMethodCall() {
 }
 
 QByteArray QHessianMethodCall::toByteArray() const {
-	QByteArray data = postData;
+	QByteArray data = stream;
 	data.append('z'); //end call
 	return data;
 }
 
-inline QHessianMethodCall &QHessianMethodCall::operator<<(const bool& value) {
-	postData.append(value ? 'T' : 'F');
-	return *this;
+inline void QHessianMethodCall::writeBool(const bool& value) {
+	stream.append(value ? 'T' : 'F');
 }
 
-inline QHessianMethodCall &QHessianMethodCall::operator<<(const std::string& value) {
-	appendString(value);
-    return *this;
+inline void QHessianMethodCall::writeString(const QString& value) {
+	writeString(value.toStdString());
 }
 
-inline QHessianMethodCall &QHessianMethodCall::operator<<(const QString& value) {
-	appendString(value.toStdString());
-    return *this;
+inline void QHessianMethodCall::writeLong(const qint64& value) {
+	stream.append('L');
+	stream.append(static_cast<char>((value >> 56) & 0xFF));
+	stream.append(static_cast<char>((value >> 48) & 0xFF));
+	stream.append(static_cast<char>((value >> 40) & 0xFF));
+	stream.append(static_cast<char>((value >> 32) & 0xFF));
+	stream.append(static_cast<char>((value >> 24) & 0xFF));
+	stream.append(static_cast<char>((value >> 16) & 0xFF));
+	stream.append(static_cast<char>((value >> 8) & 0xFF));
+	stream.append(static_cast<char>(value & 0xFF));
 }
 
-inline QHessianMethodCall &QHessianMethodCall::operator<<(const qint64& value) {
-	postData.append('L');
-	postData.append(static_cast<char>((value >> 56) & 0xFF));
-	postData.append(static_cast<char>((value >> 48) & 0xFF));
-	postData.append(static_cast<char>((value >> 40) & 0xFF));
-	postData.append(static_cast<char>((value >> 32) & 0xFF));
-	postData.append(static_cast<char>((value >> 24) & 0xFF));
-	postData.append(static_cast<char>((value >> 16) & 0xFF));
-	postData.append(static_cast<char>((value >> 8) & 0xFF));
-	postData.append(static_cast<char>(value & 0xFF));
-	return *this;
+inline void QHessianMethodCall::writeInt(const qint32& value) {
+	stream.append('I');
+	stream.append(static_cast<char>((value >> 24) & 0xFF));
+	stream.append(static_cast<char>((value >> 16) & 0xFF));
+	stream.append(static_cast<char>((value >> 8) & 0xFF));
+	stream.append(static_cast<char>(value & 0xFF));
 }
 
-inline QHessianMethodCall &QHessianMethodCall::operator<<(const qint32& value) {
-	postData.append('I');
-	postData.append(static_cast<char>((value >> 24) & 0xFF));
-	postData.append(static_cast<char>((value >> 16) & 0xFF));
-	postData.append(static_cast<char>((value >> 8) & 0xFF));
-	postData.append(static_cast<char>(value & 0xFF));
-	return *this;
+inline void QHessianMethodCall::writeDouble(const qreal& value) {
+    stream.append('D');
+    stream.append(reinterpret_cast<const char *>(&value), sizeof(value));
 }
 
-inline QHessianMethodCall &QHessianMethodCall::operator<<(const qreal& value) {
-    postData.append('D');
-    postData.append(reinterpret_cast<const char *>(&value), sizeof(value));
-	return *this;
-}
-
-inline QHessianMethodCall &QHessianMethodCall::beginObject(const std::string& object) {
-	postData.append('M');
-	postData.append('t');
-	appendNameString(object);
-	return *this;
+inline void QHessianMethodCall::writeObject(const std::string& object) {
+	stream.append('M');
+	stream.append('t');
+	writeName(object);
 }
 
 QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
@@ -147,32 +134,37 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 
 	switch (object.getType()) {
 		case BOOLEAN:
-			return appendPropetyName(((Boolean&) object).getName()) << ((Boolean&) object).getValue();
+			writePropetyName(((Boolean&) object).getName());
+			writeBool(((Boolean&) object).getValue());
 		break;
 
 		case INTEGER:
-			return appendPropetyName(((Integer&) object).getName()) << ((Integer&) object).getValue();
+			writePropetyName(((Integer&) object).getName());
+			writeInt(((Integer&) object).getValue());
 		break;
 
 		case LONG:
-			return appendPropetyName(((Long&) object).getName()) << ((Long&) object).getValue();
+			writePropetyName(((Long&) object).getName());
+			writeLong(((Long&) object).getValue());
 		break;
 
 		case DOUBLE:
-			return appendPropetyName(((Double&) object).getName()) << ((Double&) object).getValue();
+			writePropetyName(((Double&) object).getName());
+			writeDouble(((Double&) object).getValue());
 		break;
 
 		case STRING:
-			return appendPropetyName(((String&) object).getName()) << ((String&) object).getValue();
+			writePropetyName(((String&) object).getName());
+			writeString(((String&) object).getValue());
 		break;
 
 		case BEGIN_OBJECT:
-			beginObject(((BeginObject&) object).getValue());
+			writeObject(((BeginObject&) object).getValue());
 			return *this;
 		break;
 
 		case END_OBJECT:
-			postData.append('z');
+			stream.append('z');
 			return *this;
 		break;
 	}

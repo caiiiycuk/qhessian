@@ -11,8 +11,6 @@
 
 namespace QHessian {
 
-const static int PARSE_EXCEPTION = -1;
-
 const static char REPLY_TAG = 'r';
 const static char FAULT_TAG = 'f';
 
@@ -23,8 +21,6 @@ const static char NULL_TAG = 'N';
 const static char INTEGER_TAG = 'I';
 const static char STRING_SMALL_TAG = 's';
 const static char STRING_BIG_TAG = 'S';
-
-static QString PARSE_ERROR("");
 
 QHessianReturnParser::QHessianReturnParser(QNetworkReply* reply): reply(reply), errorState(false) {
 	QObject::connect(reply, SIGNAL(finished()), this, SLOT(finished()));
@@ -66,7 +62,7 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 	switch (property->getType()) {
 		case BOOLEAN:
 			expectString(((Boolean*) property)->getName());
-			read(((Boolean*) property)->getValue());
+			readBool(((Boolean*) property)->getValue());
 
 			qDebug() << "readed bool, " << ((Boolean*) property)->getValue();
 			break;
@@ -74,19 +70,19 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 		case INTEGER:
 			expectString(((Integer*) property)->getName());
 			expect(INTEGER_TAG, "QHessianReturnParser::readNext: Expected Integer ('I') tag");
-			read(((Integer*) property)->getValue());
+			readInt(((Integer*) property)->getValue());
 			break;
 
 		case LONG:
 			expectString(((Long*) property)->getName());
 			expect('L', "QHessianReturnParser::readNext: Expected Long ('L') tag");
-			read(((Long*) property)->getValue());
+			readLong(((Long*) property)->getValue());
 			break;
 
 		case DOUBLE:
 			expectString(((Double*) property)->getName());
 		    expect('D', "QHessianReturnParser::readNext: Expected Double ('D') tag");
-		    read(((Double*) property)->getValue());
+		    readDouble(((Double*) property)->getValue());
 
 		    qDebug() << "readed double, " << ((Double*) property)->getValue();
 			break;
@@ -103,7 +99,7 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 
 		    expect('d');
 		    qint64 millis;
-		    read(millis);
+		    readLong(millis);
 
 		    dateTime.setTime_t(millis / 1000);
 		} break;
@@ -122,7 +118,7 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 		    if (tag == 'l') {
 		        read();
 		        qint32 length;
-		        read(length);
+		        readInt(length);
 
 		        for (int i=0; i<length; i++) {
 		        	QList<IProperty*> properties = collection->properties();
@@ -161,12 +157,12 @@ inline void QHessianReturnParser::readString(QString& string) {
 	std::string value;
 
     while (tag == STRING_SMALL_TAG) {
-        read(value);
+        readString(value);
         tag = read();
     }
 
     expect(STRING_BIG_TAG, tag, "QHessianReturnParser::readString: Excepted tag ('S')");
-    read(value);
+    readString(value);
 
     string = QString::fromStdString(value);
 }
@@ -185,10 +181,11 @@ inline void QHessianReturnParser::readFault() {
 	readString(keyMessage);
 	readString(message);
 
-	PARSE_ERROR.append(keyCode).append(": ").append(code).append(", ")
-			.append(keyMessage).append(": ").append(message).append(", raw content: ");
+	std::string error = keyCode.toStdString() + std::string(": ")
+			+ code.toStdString() + std::string(", ") + keyMessage.toStdString()
+			+ std::string(": ") + message.toStdString();
 
-	throw PARSE_EXCEPTION;
+	throw std::runtime_error(error);
 }
 
 void QHessianReturnParser::error(QNetworkReply::NetworkError code) {
@@ -201,7 +198,7 @@ void QHessianReturnParser::error(QNetworkReply::NetworkError code) {
 //
 
 // Reads boolean
-inline void QHessianReturnParser::read(bool& value) {
+inline void QHessianReturnParser::readBool(bool& value) {
     int tag = read();
     switch (tag) {
     case 'F':
@@ -211,13 +208,12 @@ inline void QHessianReturnParser::read(bool& value) {
         value = true;
         break;
     default:
-		PARSE_ERROR.append("except boolean, found ").append(tag);
-		throw PARSE_EXCEPTION;
+		throw std::runtime_error("except boolean (F or T), found tag " + tag);
     }
 }
 
 // Reads 32-bit integer.
-inline void QHessianReturnParser::read(qint32& value) {
+inline void QHessianReturnParser::readInt(qint32& value) {
     value = ((read() & 0xFF) << 24) |
             ((read() & 0xFF) << 16) |
             ((read() & 0xFF) << 8) |
@@ -225,7 +221,7 @@ inline void QHessianReturnParser::read(qint32& value) {
 }
 
 // Reads 64-bit integer.
-inline void QHessianReturnParser::read(qint64& value) {
+inline void QHessianReturnParser::readLong(qint64& value) {
     value = (static_cast<qint64>(read() & 0xFF) << 56) |
             (static_cast<qint64>(read() & 0xFF) << 48) |
             (static_cast<qint64>(read() & 0xFF) << 40) |
@@ -237,7 +233,7 @@ inline void QHessianReturnParser::read(qint64& value) {
 }
 
 //ddouble
-inline void QHessianReturnParser::read(qreal& value) {
+inline void QHessianReturnParser::readDouble(qreal& value) {
     double dValue;
 
     char* array = reinterpret_cast<char*>(&dValue);
@@ -250,7 +246,7 @@ inline void QHessianReturnParser::read(qreal& value) {
 }
 
 // Reads UTF-8 encoded string, and appends to value.
-inline void QHessianReturnParser::read(std::string& value) {
+inline void QHessianReturnParser::readString(std::string& value) {
     std::string::size_type nChar = ((read() & 0xFF) << 8) | (read() & 0xFF);
     for (std::string::size_type i = 0; i < nChar; ++i) {
         int ch = read();
@@ -278,8 +274,9 @@ inline int QHessianReturnParser::read() {
 		replyArray++;
 		return byte;
 	} else {
-		PARSE_ERROR.append("index out of bounds ").append(replyOffset).append(" >= ").append(replySize);
-		throw PARSE_EXCEPTION;
+		QString error("index out of bounds ");
+		error.append(replyOffset).append(" >= ").append(replySize);
+		throw std::runtime_error(error.toStdString());
 	}
 }
 
@@ -290,8 +287,9 @@ inline char QHessianReturnParser::readChar() {
 		replyArray++;
 		return byte;
 	} else {
-		PARSE_ERROR.append("index out of bounds ").append(replyOffset).append(" >= ").append(replySize);
-		throw PARSE_EXCEPTION;
+		QString error("index out of bounds ");
+		error.append(replyOffset).append(" >= ").append(replySize);
+		throw std::runtime_error(error.toStdString());
 	}
 }
 
@@ -311,8 +309,9 @@ inline int QHessianReturnParser::peek() {
 		int byte = *replyArray;
 		return byte;
 	} else {
-		PARSE_ERROR.append("index out of bounds ").append(replyOffset).append(" >= ").append(replySize);
-		throw PARSE_EXCEPTION;
+		QString error("index out of bounds ");
+		error.append(replyOffset).append(" >= ").append(replySize);
+		throw std::runtime_error(error.toStdString());
 	}
 }
 
@@ -326,10 +325,11 @@ inline void QHessianReturnParser::expect(int expectedTag, const QString& details
 
 inline void QHessianReturnParser::expect(int expectedTag, int actualTag, const QString& details) {
     if (expectedTag != actualTag) {
-    	PARSE_ERROR.append("expected ").append(expectedTag).append(", but found ").append(actualTag)
-    			.append(", at ").append(QString::number(replyOffset)).append(" / ").append(QString::number(replySize))
-    			.append(", extra: ").append(details);
-        throw PARSE_EXCEPTION;
+    	QString error;
+    	error.append("expected ").append(expectedTag).append(", but found ").append(actualTag)
+    				.append(", at ").append(QString::number(replyOffset)).append(" / ").append(QString::number(replySize))
+    				.append(", extra: ").append(details);
+        throw std::runtime_error(error.toStdString());
     }
 }
 
@@ -339,8 +339,9 @@ inline void QHessianReturnParser::expectString(const QString& string) {
 		readString(realString);
 
 		if (realString != string) {
-			PARSE_ERROR.append("Incompatible types ").append(string).append(" and ").append(realString);
-			throw PARSE_EXCEPTION;
+			QString error;
+			error.append("Incompatible types ").append(string).append(" and ").append(realString);
+			throw std::runtime_error(error.toStdString());
 		}
 	}
 }
@@ -349,11 +350,12 @@ inline void QHessianReturnParser::expectString(const QString& string) {
 inline void QHessianReturnParser::expectStdString(const std::string& string) {
 	if (string.length() > 0) {
         std::string realString;
-        read(realString);
+        readString(realString);
 
 		if (realString != string) {
-			PARSE_ERROR.append("Incompatible types ").append(QString::fromStdString(string)).append(" and ").append(QString::fromStdString(realString));
-			throw PARSE_EXCEPTION;
+			QString error;
+			error.append("Incompatible types ").append(QString::fromStdString(string)).append(" and ").append(QString::fromStdString(realString));
+			throw std::runtime_error(error.toStdString());
 		}
 	}
 }
@@ -372,8 +374,8 @@ void QHessianReturnParser::parse() {
 		while (replyOffset < replySize && !properties.isEmpty()) {
 			readNext(properties);
 		}
-	} catch (int exception) {
-		emit error(exception, PARSE_ERROR);
+	} catch (std::runtime_error& parseError) {
+		emit error(0, parseError.what());
 	}
 
 	deleteLater();

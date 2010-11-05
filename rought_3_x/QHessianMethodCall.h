@@ -20,26 +20,27 @@ private:
 	Q_DISABLE_COPY(QHessianMethodCall)
 
 protected:
-	QByteArray postData;
+	QByteArray stream;
 
-	QHessianMethodCall &appendString(const std::string&);
-	QHessianMethodCall &appendNameString(const std::string&);
-	QHessianMethodCall &appendPropetyName(const QString&);
+	void writeCall();
+	void writeName(const std::string&);
+	void writePropetyName(const QString&);
 
-	QHessianMethodCall &operator<<(const bool& );
-	QHessianMethodCall &operator<<(const QString& );
-	QHessianMethodCall &operator<<(const std::string& );
-	QHessianMethodCall &operator<<(const qint64& );
-	QHessianMethodCall &operator<<(const qint32& );
-	QHessianMethodCall &operator<<(const qreal& );
+	void writeBool(const bool& );
+	void writeString(const QString& );
+	void writeString(const std::string& );
+	void writeLong(const qint64& );
+	void writeInt(const qint32& );
+	void writeDouble(const qreal& );
 
-	QHessianMethodCall &beginObject(const std::string&);
+	void writeObject(const std::string&);
+
+	QByteArray toByteArray() const;
 
 public:
 	QHessianMethodCall(const QString& methodName);
 	virtual ~QHessianMethodCall();
 
-	QByteArray toByteArray() const;
 
 	QHessianMethodCall &operator<<(const IProperty&);
 
@@ -48,41 +49,6 @@ public:
 				QObject* reciver,
 				const char* replySlot,
 				const char* errorSlot);
-
-//FIXME: add this methods
-
-//	Hessian1OutputStream&
-//	Hessian1OutputStream::operator<< (hessian::Date value)
-//	{
-//	    write('d');
-//	    write(value.timeInMillis());
-//	    return *this;
-//	}
-
-//	Hessian1OutputStream&
-//	Hessian1OutputStream::operator<< (const hessian::Binary& value)
-//	{
-//	    const char *pValue = &value[0];
-//	    std::string::size_type nBytes = value.size();
-//	    while (nBytes > CHUNK_MAX) {
-//	        write('b');
-//	        write(CHUNK_MAX, pValue);
-//
-//	        pValue += CHUNK_MAX;
-//	        nBytes -= CHUNK_MAX;
-//	    }
-//
-//	    write('B');
-//	    write(nBytes, pValue);
-//	    return *this;
-//	}
-
-//    void beginList();
-//    void endList();
-//
-//    void beginObject(
-//            const char* pTypeName, std::string::size_type typeNameLength);
-//    void endObject();
 
 };
 

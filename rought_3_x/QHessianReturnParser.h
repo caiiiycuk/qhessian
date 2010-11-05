@@ -10,8 +10,9 @@
 
 #include <QtCore>
 #include <QNetworkReply>
-#include <qdebug.h>
 #include "QHessianTypes.h"
+
+#include <stdexcept>
 
 namespace QHessian {
 
@@ -47,22 +48,22 @@ protected:
     //tags reader
     void readNext(QList<IProperty*>& properties);
     void readFault();
-    void readString(QString& string);
 
     // Reads boolean
-    void read(bool& value);
+    void readBool(bool& value);
 
     // Reads 32-bit integer.
-    void read(qint32& value);
+    void readInt(qint32& value);
 
     // Reads 64-bit integer.
-    void read(qint64& value);
+    void readLong(qint64& value);
 
     // Reads double.
-	void read(qreal& value);
+	void readDouble(qreal& value);
 
     // Reads UTF-8 encoded string, and appends to value.
-    void read(std::string& value);
+    void readString(QString& string);
+    void readString(std::string& value);
 
     Q_DISABLE_COPY(QHessianReturnParser);
 
