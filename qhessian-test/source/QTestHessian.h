@@ -13,6 +13,7 @@
 #include <stdexcept>
 
 static const QUrl	urlTest1("http://localhost:8080/test1");
+static const QUrl	urlTest2("http://localhost:8080/test2");
 
 static QNetworkAccessManager networkManager;
 
@@ -48,8 +49,17 @@ template <typename T1, typename T2>
 static void compare(QString const& a, QString const& b, const char * actual, const char * excepted, const char *file, int line) {
 	if (a != b) {
 		throw std::runtime_error("Excepted " + std::string(excepted)
-			+ ", actual " + std::string(actual)
-			+ " file " + std::string(file)
+			+ ", actual " + std::string(actual) + ":" + a.toStdString()
+			+ " file " + std::string(file) + ":" + b.toStdString()
+			+ " line " + QString::number(line).toStdString());
+	}
+}
+
+static void compare(int const& a, int const& b, const char * actual, const char * excepted, const char *file, int line) {
+	if (a != b) {
+		throw std::runtime_error("Excepted " + std::string(excepted)
+			+ ", actual " + std::string(actual) + ":" + QString::number(a).toStdString()
+			+ " file " + std::string(file) + ":" + QString::number(b).toStdString()
 			+ " line " + QString::number(line).toStdString());
 	}
 }

@@ -20,6 +20,7 @@ public:
 	QSanityCheckTest() {
 		nullCall();
 		helloCall();
+		subtractCall();
 	}
 
 	void nullCall() {
@@ -33,6 +34,18 @@ public:
 		TEST_START
 		QHessian::QHessianMethodCall call("hello");
 		call.invoke(networkManager, urlTest1, this, SLOT(replyHelloCall()), SLOT(error(int, const QString&)));
+	}
+
+	void subtractCall() {
+		TEST_START
+		QHessian::QHessianMethodCall call("subtract"); // a-b
+
+		using namespace QHessian::in;
+
+		call << Integer(105)  // a
+			 << Integer(100); // b
+
+		call.invoke(networkManager, urlTest1, this, SLOT(replySubtractCall()), SLOT(error(int, const QString&)));
 	}
 
 public slots:
@@ -50,6 +63,20 @@ public slots:
 		parser.parse();
 
 		COMPARE(hello, QString("Hello, World"));
+
+		TEST_END
+	}
+
+	void replySubtractCall() {
+		qint32 result;
+
+		using namespace QHessian::out;
+
+		QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+		parser >> Integer(result);
+		parser.parse();
+
+		COMPARE(result, 5);
 
 		TEST_END
 	}

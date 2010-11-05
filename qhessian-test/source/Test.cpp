@@ -9,16 +9,22 @@
 #define TEST_CPP_
 
 #include "QSanityCheckTest.h"
+#include "QCauchoTest.h"
 
 int main(int argc, char **argv) {
     QCoreApplication app(argc, argv);
 
-    QSanityCheckTest test;
+    qDebug() << "Start tests";
+
+    QSanityCheckTest 	sanityTest;
+    QCauchoTest 		cauchoTest;
 
     while (WAIT_FOR_TEST) {
     	QCoreApplication::processEvents();
     	QThread::currentThread()->yieldCurrentThread();
     }
+
+    qDebug() << "All test finished";
 
 	return 0;
 }
