@@ -17,6 +17,7 @@ enum Type {
 //
 // Primitive types
 //
+	BINARY,
 	BOOLEAN,
 	INTEGER,
 	LONG,
@@ -154,6 +155,7 @@ namespace out {
 	typedef Property<DOUBLE, qreal&> 					Double;
 	typedef Property<STRING, QString&> 					String;
 	typedef Property<DATE, QDateTime&> 					DateTime;
+	typedef Property<BINARY, QString&>					Binary;
 	typedef CollectionProperty 							Collection;
 	typedef Property<BEGIN_OBJECT, std::string> 		BeginObject;
 	typedef EmptyProperty<END_OBJECT> 					EndObject;

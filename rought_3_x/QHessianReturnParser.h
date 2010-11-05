@@ -65,6 +65,10 @@ protected:
     void readString(QString& string);
     void readString(std::string& value);
 
+    // reads bytes chunk for binary
+    void readByteChunk(std::string& bytes);
+    void readBytes(QString& bytes);
+
     Q_DISABLE_COPY(QHessianReturnParser);
 
 public:

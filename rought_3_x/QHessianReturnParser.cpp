@@ -11,6 +11,9 @@
 
 namespace QHessian {
 
+#define EXCEPTION(cause) \
+	throw std::runtime_error(cause + std::string(" in ") + std::string(__FILE__) + std::string(", line ") + QString::number(__LINE__).toStdString());
+
 const static char REPLY_TAG = 'r';
 const static char FAULT_TAG = 'f';
 
@@ -60,11 +63,16 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 	IProperty* property = properties.takeFirst();
 
 	switch (property->getType()) {
+		case BINARY:
+			expectString(((Binary*) property)->getName());
+			readBytes(((Binary*) property)->getValue());
+
+			break;
+
 		case BOOLEAN:
 			expectString(((Boolean*) property)->getName());
 			readBool(((Boolean*) property)->getValue());
 
-			qDebug() << "readed bool, " << ((Boolean*) property)->getValue();
 			break;
 
 		case INTEGER:
@@ -84,7 +92,6 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 		    expect('D', "QHessianReturnParser::readNext: Expected Double ('D') tag");
 		    readDouble(((Double*) property)->getValue());
 
-		    qDebug() << "readed double, " << ((Double*) property)->getValue();
 			break;
 
 		case STRING: {
@@ -185,7 +192,7 @@ inline void QHessianReturnParser::readFault() {
 			+ code.toStdString() + std::string(", ") + keyMessage.toStdString()
 			+ std::string(": ") + message.toStdString();
 
-	throw std::runtime_error(error);
+	EXCEPTION(error)
 }
 
 void QHessianReturnParser::error(QNetworkReply::NetworkError code) {
@@ -208,7 +215,7 @@ inline void QHessianReturnParser::readBool(bool& value) {
         value = true;
         break;
     default:
-		throw std::runtime_error("except boolean (F or T), found tag " + tag);
+		EXCEPTION("except boolean (F or T), found tag " + tag);
     }
 }
 
@@ -267,6 +274,40 @@ inline void QHessianReturnParser::readString(std::string& value) {
     }
 }
 
+inline void QHessianReturnParser::readByteChunk(std::string& bytes) {
+	int b16 = read() & 0xFF;
+	int b8 = read() & 0xFF;
+	int len = (b16 << 8) + b8;
+
+	for (int i = 0; i < len; i++) {
+		bytes.push_back(readChar());
+	}
+}
+
+inline void QHessianReturnParser::readBytes(QString& bytes) {
+	int tag = read();
+
+	if (tag == 'N') {
+		bytes.clear();
+		return;
+	}
+
+	std::string stream;
+
+	while (tag == 'b') {
+		readByteChunk(stream);
+		tag = read();
+	}
+
+	if (tag != 'B') {
+		EXCEPTION("excepted B tag");
+	}
+
+	readByteChunk(stream);
+
+	bytes = QString::fromStdString(stream);
+}
+
 inline int QHessianReturnParser::read() {
 	if (replyOffset < replySize) {
 		int byte = *replyArray;
@@ -276,7 +317,7 @@ inline int QHessianReturnParser::read() {
 	} else {
 		QString error("index out of bounds ");
 		error.append(replyOffset).append(" >= ").append(replySize);
-		throw std::runtime_error(error.toStdString());
+		EXCEPTION(error.toStdString());
 	}
 }
 
@@ -289,7 +330,7 @@ inline char QHessianReturnParser::readChar() {
 	} else {
 		QString error("index out of bounds ");
 		error.append(replyOffset).append(" >= ").append(replySize);
-		throw std::runtime_error(error.toStdString());
+		EXCEPTION(error.toStdString());
 	}
 }
 
@@ -311,7 +352,7 @@ inline int QHessianReturnParser::peek() {
 	} else {
 		QString error("index out of bounds ");
 		error.append(replyOffset).append(" >= ").append(replySize);
-		throw std::runtime_error(error.toStdString());
+		EXCEPTION(error.toStdString());
 	}
 }
 
@@ -329,7 +370,7 @@ inline void QHessianReturnParser::expect(int expectedTag, int actualTag, const Q
     	error.append("expected ").append(expectedTag).append(", but found ").append(actualTag)
     				.append(", at ").append(QString::number(replyOffset)).append(" / ").append(QString::number(replySize))
     				.append(", extra: ").append(details);
-        throw std::runtime_error(error.toStdString());
+        EXCEPTION(error.toStdString());
     }
 }
 
@@ -341,7 +382,7 @@ inline void QHessianReturnParser::expectString(const QString& string) {
 		if (realString != string) {
 			QString error;
 			error.append("Incompatible types ").append(string).append(" and ").append(realString);
-			throw std::runtime_error(error.toStdString());
+			EXCEPTION(error.toStdString());
 		}
 	}
 }
@@ -355,7 +396,7 @@ inline void QHessianReturnParser::expectStdString(const std::string& string) {
 		if (realString != string) {
 			QString error;
 			error.append("Incompatible types ").append(QString::fromStdString(string)).append(" and ").append(QString::fromStdString(realString));
-			throw std::runtime_error(error.toStdString());
+			EXCEPTION(error.toStdString());
 		}
 	}
 }
