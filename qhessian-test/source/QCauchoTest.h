@@ -59,6 +59,14 @@ public:
 		replyBinary_1023Call();
 		replyBinary_1024Call();
 		replyBinary_65536Call();
+
+		//
+		// Untyped lists
+		//
+		replyUntypedFixedList_0Call();
+		replyUntypedFixedList_1Call();
+		replyUntypedFixedList_7Call();
+		replyUntypedFixedList_8Call();
 	}
 
 	void methodNull() {
@@ -129,6 +137,28 @@ public:
 
 		QHessian::QHessianMethodCall call("replyBinary_65536");
 		call.invoke(networkManager, urlTest2, this, SLOT(replyBinary_65536()), SLOT(error(int, const QString&)));
+	}
+
+	void replyUntypedFixedList_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyUntypedFixedList_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyUntypedFixedList_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyUntypedFixedList_1Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyUntypedFixedList_1");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyUntypedFixedList_1()), SLOT(error(int, const QString&)));
+	}
+
+	void replyUntypedFixedList_7Call() {
+
+	}
+
+	void replyUntypedFixedList_8Call() {
+
 	}
 
 public slots:
@@ -253,6 +283,43 @@ public slots:
 
 		TEST_END
 	}
+
+	void replyUntypedFixedList_0() {
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Collection("", this, (QHessian::CollectionCallback) &QCauchoTest::replyUntypedFixedList_0Wrapper);
+        parser.parse();
+		TEST_END
+	}
+
+	void replyUntypedFixedList_0Wrapper(QHessian::CollectionWrapper&) {
+		throw std::runtime_error("never invokes, because 0-size list");
+	}
+
+	void replyUntypedFixedList_1() {
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Collection("", this, (QHessian::CollectionCallback) &QCauchoTest::replyUntypedFixedList_1Wrapper);
+        parser.parse();
+		TEST_END
+	}
+
+	void replyUntypedFixedList_1Wrapper(QHessian::CollectionWrapper& wrapper) {
+		QString out1;
+		using namespace QHessian::out;
+		wrapper >> String(out1);
+	}
+
+	void replyUntypedFixedList_7() {
+
+	}
+
+	void replyUntypedFixedList_8() {
+
+	}
+
 
 	void error(int, const QString& string) {
 		throw std::runtime_error("QHessian error: " + string.toStdString());
