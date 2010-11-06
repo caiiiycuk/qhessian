@@ -60,7 +60,7 @@ public slots:
 
 		QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
 		parser >> String(hello);
-		parser.parse();
+		parser.deleteLater();
 
 		COMPARE(hello, QString("Hello, World"));
 
@@ -74,7 +74,7 @@ public slots:
 
 		QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
 		parser >> Integer(result);
-		parser.parse();
+		parser.deleteLater();
 
 		COMPARE(result, 5);
 

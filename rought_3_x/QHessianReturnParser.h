@@ -69,6 +69,9 @@ protected:
     void readByteChunk(std::string& bytes);
     void readBytes(QString& bytes);
 
+    // collections
+    void readCollection(out::BeginCollection& collection);
+
     Q_DISABLE_COPY(QHessianReturnParser);
 
 public:
@@ -76,9 +79,6 @@ public:
 	virtual ~QHessianReturnParser();
 
 	QHessianReturnParser &operator>>(const IProperty&);
-//	QHessianReturnParser &operator>>(const String&);
-
-	void parse();
 
 public slots:
 	virtual void finished();

@@ -39,6 +39,25 @@ namespace {
 
         return excepted;
 	}
+
+	void compareUntypedFixedList(QHessian::QHessianReturnParser& parser, int realSize) {
+		using namespace QHessian::out;
+
+		qint32 collectionSize;
+
+		parser >> BeginCollection("", collectionSize);
+
+		COMPARE(collectionSize, realSize)
+
+		for (int i=0; i<collectionSize; ++i) {
+			QString value;
+			parser >> String(value);
+
+			COMPARE(value, QString::number(i+1));
+		}
+
+		parser >> EndCollection();
+	}
 }
 
 class QCauchoTest: public QObject {
@@ -154,11 +173,17 @@ public:
 	}
 
 	void replyUntypedFixedList_7Call() {
+		TEST_START
 
+		QHessian::QHessianMethodCall call("replyUntypedFixedList_7");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyUntypedFixedList_7()), SLOT(error(int, const QString&)));
 	}
 
 	void replyUntypedFixedList_8Call() {
+		TEST_START
 
+		QHessian::QHessianMethodCall call("replyUntypedFixedList_8");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyUntypedFixedList_8()), SLOT(error(int, const QString&)));
 	}
 
 public slots:
@@ -173,7 +198,7 @@ public slots:
 
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
         parser >> Binary(binary);
-        parser.parse();
+        parser.deleteLater();
 
         COMPARE(binary.length(), 0);
 
@@ -187,7 +212,7 @@ public slots:
 
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
         parser >> Binary(binary);
-        parser.parse();
+        parser.deleteLater();
 
         COMPARE(binary.length(), 0); //means null
 
@@ -201,7 +226,7 @@ public slots:
 
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
         parser >> Binary(binary);
-        parser.parse();
+        parser.deleteLater();
 
         COMPARE(binary.length(), 1);
         COMPARE(binary.at(0).toAscii(), '0');
@@ -216,7 +241,7 @@ public slots:
 
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
         parser >> Binary(binary);
-        parser.parse();
+        parser.deleteLater();
 
         COMPARE(binary.length(), 15);
         COMPARE(binary, QString("012345678901234"));
@@ -231,7 +256,7 @@ public slots:
 
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
         parser >> Binary(binary);
-        parser.parse();
+        parser.deleteLater();
 
         COMPARE(binary.length(), 16);
         COMPARE(binary, QString("0123456789012345"));
@@ -246,7 +271,7 @@ public slots:
 
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
         parser >> Binary(binary);
-        parser.parse();
+        parser.deleteLater();
 
         COMPARE(binary.length(), 1023);
         COMPARE(binary, generateString(1023));
@@ -261,7 +286,7 @@ public slots:
 
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
         parser >> Binary(binary);
-        parser.parse();
+        parser.deleteLater();
 
         COMPARE(binary.length(), 1024);
         COMPARE(binary, generateString(1024));
@@ -276,7 +301,7 @@ public slots:
 
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
         parser >> Binary(binary);
-        parser.parse();
+        parser.deleteLater();
 
         COMPARE(binary.length(), 65536);
         COMPARE(binary, generateString(65536));
@@ -285,39 +310,35 @@ public slots:
 	}
 
 	void replyUntypedFixedList_0() {
-        using namespace QHessian::out;
-
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
-        parser >> Collection("", this, (QHessian::CollectionCallback) &QCauchoTest::replyUntypedFixedList_0Wrapper);
-        parser.parse();
-		TEST_END
-	}
+        compareUntypedFixedList(parser, 0);
+        parser.deleteLater();
 
-	void replyUntypedFixedList_0Wrapper(QHessian::CollectionWrapper&) {
-		throw std::runtime_error("never invokes, because 0-size list");
+		TEST_END
 	}
 
 	void replyUntypedFixedList_1() {
-        using namespace QHessian::out;
-
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
-        parser >> Collection("", this, (QHessian::CollectionCallback) &QCauchoTest::replyUntypedFixedList_1Wrapper);
-        parser.parse();
+        compareUntypedFixedList(parser, 1);
+        parser.deleteLater();
+
 		TEST_END
 	}
 
-	void replyUntypedFixedList_1Wrapper(QHessian::CollectionWrapper& wrapper) {
-		QString out1;
-		using namespace QHessian::out;
-		wrapper >> String(out1);
-	}
-
 	void replyUntypedFixedList_7() {
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        compareUntypedFixedList(parser, 7);
+        parser.deleteLater();
 
+		TEST_END
 	}
 
 	void replyUntypedFixedList_8() {
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        compareUntypedFixedList(parser, 8);
+        parser.deleteLater();
 
+		TEST_END
 	}
 
 

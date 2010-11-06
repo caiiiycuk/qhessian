@@ -43,8 +43,20 @@ void QHessianReturnParser::finished() {
 		replyOffset = 0;
 		replySize = array.length();
 
-		for (int i=0; i<array.size(); ++i) {
-			qDebug() << array.at(i);
+//		for (int i=0; i<array.size(); ++i) {
+//			qDebug() << array.at(i);
+//		}
+
+		try {
+			expect(REPLY_TAG);
+			read(); // major version
+			read(); // minor version
+
+			if (peek(FAULT_TAG)) {
+				readFault();
+			}
+		} catch (std::runtime_error& parseError) {
+			emit error(0, parseError.what());
 		}
 
 		emit ready();
@@ -55,10 +67,6 @@ void QHessianReturnParser::finished() {
 
 inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 	using namespace out;
-
-	if (peek(FAULT_TAG)) {
-		readFault();
-	}
 
 	IProperty* property = properties.takeFirst();
 
@@ -111,31 +119,14 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 		    dateTime.setTime_t(millis / 1000);
 		} break;
 
-		case COLLECTION: {
-			Collection* collection = (Collection*) property;
+		case BEGIN_COLLECTION: {
+			BeginCollection* collection = (BeginCollection*) property;
 	        expectString(collection->getName());
-		    expect('V');
-		    int tag = peek();
-		    if (tag == 't') {
-		        read();
-		        expectString(collection->getName());
-		        tag = peek();
-		    }
+	        readCollection(*collection);
+		} break;
 
-		    if (tag == 'l') {
-		        read();
-		        qint32 length;
-		        readInt(length);
-
-		        for (int i=0; i<length; i++) {
-		        	QList<IProperty*> properties = collection->properties();
-		    		while (replyOffset < replySize && !properties.isEmpty()) {
-		    			readNext(properties);
-		    		}
-		        }
-
-		        expect('z', "QHessianReturnParser::readObject: Excepted Collection end ('z') tag");
-		    }
+		case END_COLLECTION: {
+		    expect('z', "QHessianReturnParser::readObject: Excepted Collection end ('z') tag");
 		} break;
 
 		case BEGIN_OBJECT: {
@@ -308,6 +299,21 @@ inline void QHessianReturnParser::readBytes(QString& bytes) {
 	bytes = QString::fromStdString(stream);
 }
 
+inline void QHessianReturnParser::readCollection(out::BeginCollection& collection) {
+    expect('V');
+    int tag = peek();
+    if (tag == 't') {
+        read();
+        expectString(collection.getName());
+        tag = peek();
+    }
+
+    if (tag == 'l') {
+        read();
+        readInt(collection.getValue());
+    }
+}
+
 inline int QHessianReturnParser::read() {
 	if (replyOffset < replySize) {
 		int byte = *replyArray;
@@ -402,24 +408,12 @@ inline void QHessianReturnParser::expectStdString(const std::string& string) {
 }
 
 QHessianReturnParser &QHessianReturnParser::operator>>(const IProperty& property) {
-	properties.push_back(property.clone());
+//	properties.push_back(property.clone());
+	//FIXME
+	QList<IProperty*> props;
+	props.append(property.clone());
+	readNext(props);
 	return *this;
-}
-
-void QHessianReturnParser::parse() {
-	try {
-		expect(REPLY_TAG);
-		read(); // major version
-		read(); // minor version
-
-		while (replyOffset < replySize && !properties.isEmpty()) {
-			readNext(properties);
-		}
-	} catch (std::runtime_error& parseError) {
-		emit error(0, parseError.what());
-	}
-
-	deleteLater();
 }
 
 }
