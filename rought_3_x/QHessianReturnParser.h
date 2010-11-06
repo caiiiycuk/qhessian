@@ -72,6 +72,9 @@ protected:
     // collections
     void readCollection(out::BeginCollection& collection);
 
+    // maps
+    void readMap(out::BeginMap& map);
+
     Q_DISABLE_COPY(QHessianReturnParser);
 
 public:

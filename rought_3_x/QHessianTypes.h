@@ -26,11 +26,17 @@ enum Type {
 	DATE,
 
 //
-// Wrapper for collections (list, map, set, array)
+// Wrapper for collections (list, array)
 //
 	BEGIN_COLLECTION,
 	END_COLLECTION,
 
+//
+// Wrapper for maps
+//
+	BEGIN_MAP,
+	HAS_MORE_MAP,
+	END_MAP,
 //
 // Tokens
 //
@@ -133,8 +139,14 @@ namespace out {
 	typedef Property<STRING, QString&> 					String;
 	typedef Property<DATE, QDateTime&> 					DateTime;
 	typedef Property<BINARY, QString&>					Binary;
+
 	typedef TypedProperty<BEGIN_COLLECTION, qint32&>	BeginCollection;
 	typedef EmptyProperty<END_COLLECTION>				EndCollection;
+
+	typedef EmptyProperty<BEGIN_MAP>					BeginMap;
+	typedef Property<HAS_MORE_MAP, bool&>				HasMoreMap;
+	typedef EmptyProperty<END_MAP>						EndMap;
+
 	typedef Property<BEGIN_OBJECT, std::string> 		BeginObject;
 	typedef EmptyProperty<END_OBJECT> 					EndObject;
 

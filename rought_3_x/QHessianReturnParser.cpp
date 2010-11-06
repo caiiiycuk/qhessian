@@ -44,7 +44,7 @@ void QHessianReturnParser::finished() {
 		replySize = array.length();
 
 //		for (int i=0; i<array.size(); ++i) {
-//			qDebug() << array.at(i);
+//			qDebug() << QString::number(array.at(i)) << ":" << array.at(i);
 //		}
 
 		try {
@@ -125,8 +125,14 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 	        readCollection(*collection);
 		} break;
 
-		case END_COLLECTION: {
-		    expect('z', "QHessianReturnParser::readObject: Excepted Collection end ('z') tag");
+		case BEGIN_MAP: {
+			BeginMap* map = (BeginMap*) property;
+			expectString(map->getName());
+			readMap(*map);
+		} break;
+
+		case HAS_MORE_MAP: {
+			((HasMoreMap*) property)->getValue() = (peek() != 'z');
 		} break;
 
 		case BEGIN_OBJECT: {
@@ -136,8 +142,10 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 		    }
 		} break;
 
-		case END_OBJECT: {
-			expect('z', "QHessianReturnParser::readObject: Excepted Object end ('z') tag");
+		case END_OBJECT:
+		case END_MAP:
+		case END_COLLECTION: {
+		    expect('z', "QHessianReturnParser::Excepted end ('z') tag");
 		} break;
 	}
 
@@ -311,6 +319,20 @@ inline void QHessianReturnParser::readCollection(out::BeginCollection& collectio
     if (tag == 'l') {
         read();
         readInt(collection.getValue());
+    }
+}
+
+inline void QHessianReturnParser::readMap(out::BeginMap& map) {
+    expect('M');
+    int tag = peek();
+
+    while (tag == 't') {
+        read();
+
+        std::string type;
+        readString(type);
+        qDebug() << "map type " << QString::fromStdString(type);
+        tag = peek();
     }
 }
 

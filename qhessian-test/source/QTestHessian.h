@@ -73,6 +73,15 @@ static void compare(char const& a, char const& b, const char * actual, const cha
 	}
 }
 
+static void compare(bool const& a, bool const& b, const char * actual, const char * excepted, const char *file, int line) {
+	if (a != b) {
+		throw std::runtime_error("Excepted " + std::string(excepted)
+			+ ", actual " + std::string(actual) + ":" + QString::number(a).toStdString()
+			+ " file " + std::string(file) + ":" + QString::number(b).toStdString()
+			+ " line " + QString::number(line).toStdString());
+	}
+}
+
 #define COMPARE(actual, expected) \
     compare(actual, expected, #actual, #expected, __FILE__, __LINE__);
 

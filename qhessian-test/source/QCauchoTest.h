@@ -98,6 +98,14 @@ public:
 		replyTypedFixedList_1Call();
 		replyTypedFixedList_7Call();
 		replyTypedFixedList_8Call();
+
+		//
+		// untyped maps
+		//
+		replyUntypedMap_0Call();
+		replyUntypedMap_1Call();
+		replyUntypedMap_2Call();
+		replyUntypedMap_3Call();
 	}
 
 	void methodNull() {
@@ -224,6 +232,34 @@ public:
 
 		QHessian::QHessianMethodCall call("replyTypedFixedList_8");
 		call.invoke(networkManager, urlTest2, this, SLOT(replyTypedFixedList_8()), SLOT(error(int, const QString&)));
+	}
+
+	void replyUntypedMap_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyUntypedMap_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyUntypedMap_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyUntypedMap_1Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyUntypedMap_1");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyUntypedMap_1()), SLOT(error(int, const QString&)));
+	}
+
+	void replyUntypedMap_2Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyUntypedMap_2");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyUntypedMap_2()), SLOT(error(int, const QString&)));
+	}
+
+	void replyUntypedMap_3Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyUntypedMap_3");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyUntypedMap_3()), SLOT(error(int, const QString&)));
 	}
 
 public slots:
@@ -408,6 +444,112 @@ public slots:
 	void replyTypedFixedList_8() {
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
         compareFixedList(parser, 8, false);
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyUntypedMap_0() {
+		using namespace QHessian::out;
+
+		bool	hasMore;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginMap();
+		parser >> HasMoreMap(hasMore);
+	    parser >> EndMap();
+        parser.deleteLater();
+
+        COMPARE(hasMore, false);
+
+		TEST_END
+	}
+
+	void replyUntypedMap_1() {
+		using namespace QHessian::out;
+
+		QString key;
+		qint32  value;
+		bool	hasMore;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginMap();
+		while ((parser >> HasMoreMap(hasMore), hasMore)) {
+			parser >> String(key);
+			parser >> Integer(value);
+			COMPARE(key, QString("a"))
+			COMPARE(value, 0)
+		}
+	    parser >> EndMap();
+
+
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyUntypedMap_2() {
+		using namespace QHessian::out;
+
+		qint32 	key;
+		QString value;
+		bool	hasMore;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginMap();
+
+        parser >> HasMoreMap(hasMore);
+		parser >> Integer(key);
+		parser >> String(value);
+
+		COMPARE(hasMore, true)
+		COMPARE(key, 0)
+		COMPARE(value, QString("a"))
+
+		parser >> HasMoreMap(hasMore);
+		parser >> Integer(key);
+		parser >> String(value);
+
+		COMPARE(hasMore, true)
+		COMPARE(key, 1)
+		COMPARE(value, QString("b"))
+
+		parser >> HasMoreMap(hasMore);
+		COMPARE(hasMore, false)
+
+	    parser >> EndMap();
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyUntypedMap_3() {
+		using namespace QHessian::out;
+
+		QString	key;
+		qint32 	value;
+		bool	hasMore;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginMap();
+
+        parser >> HasMoreMap(hasMore);
+		COMPARE(hasMore, true)
+
+        //key
+        qint32 size;
+		parser >> BeginCollection(size)
+			   >> String(key)
+			   >> EndCollection();
+
+		COMPARE(size, 1)
+		COMPARE(key, QString("a"))
+
+		//value
+		parser >> Integer(value);
+		COMPARE(value, 0)
+
+	    parser >> EndMap();
         parser.deleteLater();
 
 		TEST_END
