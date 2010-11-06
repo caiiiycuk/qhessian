@@ -304,7 +304,7 @@ inline void QHessianReturnParser::readCollection(out::BeginCollection& collectio
     int tag = peek();
     if (tag == 't') {
         read();
-        expectString(collection.getName());
+        expectStdString(collection.getTypeName().toStdString());
         tag = peek();
     }
 

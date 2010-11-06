@@ -84,6 +84,33 @@ public:
 	EmptyProperty(): Property<T, int*>("", 0) {};
 };
 
+template <Type T, typename V>
+class TypedProperty: public Property<T, V> {
+protected:
+	QString typeName;
+
+public:
+	TypedProperty(V value): Property<T, V>(value), typeName("") {
+	}
+
+	TypedProperty(const QString& name, V value): Property<T, V>(name, value), typeName("") {
+	}
+
+	TypedProperty(const QString& name, const QString& typeName, V value): Property<T, V>(name, value), typeName(typeName) {
+	}
+
+	TypedProperty(const TypedProperty<T, V>& other): Property<T, V>(other), typeName(other.typeName) {
+	};
+
+	QString& getTypeName() {
+		return typeName;
+	}
+
+	virtual Property<T, V>* clone() const {
+		return new TypedProperty<T, V>(*this);
+	}
+};
+
 namespace in {
 
 	typedef Property<BOOLEAN, bool> 					Boolean;
@@ -106,7 +133,7 @@ namespace out {
 	typedef Property<STRING, QString&> 					String;
 	typedef Property<DATE, QDateTime&> 					DateTime;
 	typedef Property<BINARY, QString&>					Binary;
-	typedef Property<BEGIN_COLLECTION, qint32&>			BeginCollection;
+	typedef TypedProperty<BEGIN_COLLECTION, qint32&>	BeginCollection;
 	typedef EmptyProperty<END_COLLECTION>				EndCollection;
 	typedef Property<BEGIN_OBJECT, std::string> 		BeginObject;
 	typedef EmptyProperty<END_OBJECT> 					EndObject;

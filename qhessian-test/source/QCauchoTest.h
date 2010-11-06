@@ -40,12 +40,16 @@ namespace {
         return excepted;
 	}
 
-	void compareUntypedFixedList(QHessian::QHessianReturnParser& parser, int realSize) {
+	void compareFixedList(QHessian::QHessianReturnParser& parser, int realSize, bool untyped) {
 		using namespace QHessian::out;
 
 		qint32 collectionSize;
 
-		parser >> BeginCollection("", collectionSize);
+		if (untyped) {
+			parser >> BeginCollection(collectionSize);
+		} else {
+			parser >> BeginCollection("", "[string", collectionSize);
+		}
 
 		COMPARE(collectionSize, realSize)
 
@@ -86,6 +90,14 @@ public:
 		replyUntypedFixedList_1Call();
 		replyUntypedFixedList_7Call();
 		replyUntypedFixedList_8Call();
+
+		//
+		// Typed lists
+		//
+		replyTypedFixedList_0Call();
+		replyTypedFixedList_1Call();
+		replyTypedFixedList_7Call();
+		replyTypedFixedList_8Call();
 	}
 
 	void methodNull() {
@@ -184,6 +196,34 @@ public:
 
 		QHessian::QHessianMethodCall call("replyUntypedFixedList_8");
 		call.invoke(networkManager, urlTest2, this, SLOT(replyUntypedFixedList_8()), SLOT(error(int, const QString&)));
+	}
+
+	void replyTypedFixedList_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyTypedFixedList_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyTypedFixedList_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyTypedFixedList_1Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyTypedFixedList_1");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyTypedFixedList_1()), SLOT(error(int, const QString&)));
+	}
+
+	void replyTypedFixedList_7Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyTypedFixedList_7");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyTypedFixedList_7()), SLOT(error(int, const QString&)));
+	}
+
+	void replyTypedFixedList_8Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyTypedFixedList_8");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyTypedFixedList_8()), SLOT(error(int, const QString&)));
 	}
 
 public slots:
@@ -311,7 +351,7 @@ public slots:
 
 	void replyUntypedFixedList_0() {
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
-        compareUntypedFixedList(parser, 0);
+        compareFixedList(parser, 0, true);
         parser.deleteLater();
 
 		TEST_END
@@ -319,7 +359,7 @@ public slots:
 
 	void replyUntypedFixedList_1() {
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
-        compareUntypedFixedList(parser, 1);
+        compareFixedList(parser, 1, true);
         parser.deleteLater();
 
 		TEST_END
@@ -327,7 +367,7 @@ public slots:
 
 	void replyUntypedFixedList_7() {
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
-        compareUntypedFixedList(parser, 7);
+        compareFixedList(parser, 7, true);
         parser.deleteLater();
 
 		TEST_END
@@ -335,12 +375,43 @@ public slots:
 
 	void replyUntypedFixedList_8() {
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
-        compareUntypedFixedList(parser, 8);
+        compareFixedList(parser, 8, true);
         parser.deleteLater();
 
 		TEST_END
 	}
 
+	void replyTypedFixedList_0() {
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        compareFixedList(parser, 0, false);
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyTypedFixedList_1() {
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        compareFixedList(parser, 1, false);
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyTypedFixedList_7() {
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        compareFixedList(parser, 7, false);
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyTypedFixedList_8() {
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        compareFixedList(parser, 8, false);
+        parser.deleteLater();
+
+		TEST_END
+	}
 
 	void error(int, const QString& string) {
 		throw std::runtime_error("QHessian error: " + string.toStdString());
