@@ -326,13 +326,15 @@ inline void QHessianReturnParser::readMap(out::BeginMap& map) {
     expect('M');
     int tag = peek();
 
-    while (tag == 't') {
+    if (tag == 't') {
         read();
 
         std::string type;
-        readString(type);
-        qDebug() << "map type " << QString::fromStdString(type);
-        tag = peek();
+        if (map.getTypeName().length() > 0) {
+        	expectStdString(map.getTypeName().toStdString());
+        } else {
+        	readString(type);
+        }
     }
 }
 

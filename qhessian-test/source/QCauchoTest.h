@@ -106,6 +106,14 @@ public:
 		replyUntypedMap_1Call();
 		replyUntypedMap_2Call();
 		replyUntypedMap_3Call();
+
+		//
+		// typed maps
+		//
+		replyTypedMap_0Call();
+		replyTypedMap_1Call();
+		replyTypedMap_2Call();
+		replyTypedMap_3Call();
 	}
 
 	void methodNull() {
@@ -260,6 +268,34 @@ public:
 
 		QHessian::QHessianMethodCall call("replyUntypedMap_3");
 		call.invoke(networkManager, urlTest2, this, SLOT(replyUntypedMap_3()), SLOT(error(int, const QString&)));
+	}
+
+	void replyTypedMap_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyTypedMap_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyTypedMap_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyTypedMap_1Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyTypedMap_1");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyTypedMap_1()), SLOT(error(int, const QString&)));
+	}
+
+	void replyTypedMap_2Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyTypedMap_2");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyTypedMap_2()), SLOT(error(int, const QString&)));
+	}
+
+	void replyTypedMap_3Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyTypedMap_3");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyTypedMap_3()), SLOT(error(int, const QString&)));
 	}
 
 public slots:
@@ -503,16 +539,31 @@ public slots:
 		parser >> String(value);
 
 		COMPARE(hasMore, true)
-		COMPARE(key, 0)
-		COMPARE(value, QString("a"))
+
+		bool desc = true;
+
+		if (key == 0) {
+			COMPARE(key, 0)
+			COMPARE(value, QString("a"))
+			desc = false;
+		} else {
+			COMPARE(key, 1)
+			COMPARE(value, QString("b"))
+		}
 
 		parser >> HasMoreMap(hasMore);
 		parser >> Integer(key);
 		parser >> String(value);
 
 		COMPARE(hasMore, true)
-		COMPARE(key, 1)
-		COMPARE(value, QString("b"))
+
+		if (desc) {
+			COMPARE(key, 0)
+			COMPARE(value, QString("a"))
+		} else {
+			COMPARE(key, 1)
+			COMPARE(value, QString("b"))
+		}
 
 		parser >> HasMoreMap(hasMore);
 		COMPARE(hasMore, false)
@@ -532,6 +583,127 @@ public slots:
 
         QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
         parser >> BeginMap();
+
+        parser >> HasMoreMap(hasMore);
+		COMPARE(hasMore, true)
+
+        //key
+        qint32 size;
+		parser >> BeginCollection(size)
+			   >> String(key)
+			   >> EndCollection();
+
+		COMPARE(size, 1)
+		COMPARE(key, QString("a"))
+
+		//value
+		parser >> Integer(value);
+		COMPARE(value, 0)
+
+	    parser >> EndMap();
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyTypedMap_0() {
+		using namespace QHessian::out;
+
+		bool	hasMore;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginMap("", "java.util.Hashtable");
+		parser >> HasMoreMap(hasMore);
+	    parser >> EndMap();
+        parser.deleteLater();
+
+        COMPARE(hasMore, false);
+
+		TEST_END
+	}
+
+	void replyTypedMap_1() {
+		using namespace QHessian::out;
+
+		QString key;
+		qint32  value;
+		bool	hasMore;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginMap("", "java.util.Hashtable");
+		while ((parser >> HasMoreMap(hasMore), hasMore)) {
+			parser >> String(key);
+			parser >> Integer(value);
+			COMPARE(key, QString("a"))
+			COMPARE(value, 0)
+		}
+	    parser >> EndMap();
+
+
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyTypedMap_2() {
+		using namespace QHessian::out;
+
+		qint32 	key;
+		QString value;
+		bool	hasMore;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginMap("", "java.util.Hashtable");
+
+        parser >> HasMoreMap(hasMore);
+		parser >> Integer(key);
+		parser >> String(value);
+
+		COMPARE(hasMore, true)
+
+		bool desc = true;
+
+		if (key == 0) {
+			COMPARE(key, 0)
+			COMPARE(value, QString("a"))
+			desc = false;
+		} else {
+			COMPARE(key, 1)
+			COMPARE(value, QString("b"))
+		}
+
+		parser >> HasMoreMap(hasMore);
+		parser >> Integer(key);
+		parser >> String(value);
+
+		COMPARE(hasMore, true)
+
+		if (desc) {
+			COMPARE(key, 0)
+			COMPARE(value, QString("a"))
+		} else {
+			COMPARE(key, 1)
+			COMPARE(value, QString("b"))
+		}
+
+		parser >> HasMoreMap(hasMore);
+		COMPARE(hasMore, false)
+
+	    parser >> EndMap();
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyTypedMap_3() {
+		using namespace QHessian::out;
+
+		QString	key;
+		qint32 	value;
+		bool	hasMore;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginMap("", "java.util.Hashtable");
 
         parser >> HasMoreMap(hasMore);
 		COMPARE(hasMore, true)

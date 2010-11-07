@@ -90,6 +90,38 @@ public:
 	EmptyProperty(): Property<T, int*>("", 0) {};
 };
 
+class BeginMapProperty: public IProperty {
+protected:
+	QString 	name;
+	QString		typeName;
+
+public:
+	BeginMapProperty(): name(""), typeName("") {
+	}
+
+	BeginMapProperty(QString name, QString typeName): name(name), typeName(typeName) {
+	}
+
+	BeginMapProperty(const BeginMapProperty& other): name(other.name), typeName(other.typeName) {
+	}
+
+	virtual const QString& getTypeName() const {
+		return typeName;
+	}
+
+	virtual const QString& getName() const {
+		return name;
+	}
+
+	virtual Type getType() const {
+		return BEGIN_MAP;
+	}
+
+	virtual IProperty* clone() const {
+		return new BeginMapProperty(*this);
+	}
+};
+
 template <Type T, typename V>
 class TypedProperty: public Property<T, V> {
 protected:
@@ -108,7 +140,7 @@ public:
 	TypedProperty(const TypedProperty<T, V>& other): Property<T, V>(other), typeName(other.typeName) {
 	};
 
-	QString& getTypeName() {
+	virtual const QString& getTypeName() const {
 		return typeName;
 	}
 
@@ -143,7 +175,7 @@ namespace out {
 	typedef TypedProperty<BEGIN_COLLECTION, qint32&>	BeginCollection;
 	typedef EmptyProperty<END_COLLECTION>				EndCollection;
 
-	typedef EmptyProperty<BEGIN_MAP>					BeginMap;
+	typedef BeginMapProperty							BeginMap;
 	typedef Property<HAS_MORE_MAP, bool&>				HasMoreMap;
 	typedef EmptyProperty<END_MAP>						EndMap;
 
