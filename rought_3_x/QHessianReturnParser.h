@@ -28,6 +28,13 @@ protected:
 	int   replySize;
 
 	bool errorState;
+	bool lastReadWasNull;
+
+	//
+	// Except reads from input stream and trhow exception if not equals
+	//
+    int  read();
+	char readChar();
 
 	void expect(int expectedTag, int actualTag, const QString& details);
 	void expect(int expectedTag, const QString& details);
@@ -36,17 +43,8 @@ protected:
 	void expectString(const QString&);
 	void expectStdString(const std::string&);
 
-    int  read();
-    char readChar();
-    int  peek();
-
-    //
-    // check is char c equals to next char in array, and if equals, read it
-    //
-    bool peek(char c);
-
     //tags reader
-    void readNext(QList<IProperty*>& properties);
+    void readNext(IProperty& properties);
     void readFault();
 
     // Reads boolean
@@ -75,6 +73,22 @@ protected:
     // maps
     void readMap(out::BeginMap& map);
 
+
+	//
+	// Peek - dont move a read pointer
+	//
+    int  peek();
+
+    //
+    // check is char c equals to next char in array, and if equals, read it
+    //
+    bool peek(char c);
+
+    //
+    // check string and if equals - read it
+    //
+    bool peekString(const QString&);
+
     Q_DISABLE_COPY(QHessianReturnParser);
 
 public:
@@ -82,6 +96,8 @@ public:
 	virtual ~QHessianReturnParser();
 
 	QHessianReturnParser &operator>>(const IProperty&);
+
+	bool wasNull() const;
 
 public slots:
 	virtual void finished();

@@ -38,15 +38,22 @@ enum Type {
 	HAS_MORE_MAP,
 	END_MAP,
 //
-// Tokens
+// Objects
 //
 	BEGIN_OBJECT,
-	END_OBJECT
+	END_OBJECT,
+
+//
+// References
+//
+	REF
 };
 
 class IProperty {
+protected:
+	bool _null;
 public:
-	IProperty() {};
+	IProperty():_null(false) {};
 	virtual ~IProperty() {};
 
 	virtual Type getType() const = 0;
@@ -181,6 +188,8 @@ namespace out {
 
 	typedef Property<BEGIN_OBJECT, std::string> 		BeginObject;
 	typedef EmptyProperty<END_OBJECT> 					EndObject;
+
+	typedef Property<REF, qint32&> 						Ref;
 
 }
 

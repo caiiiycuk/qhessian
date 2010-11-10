@@ -114,6 +114,17 @@ public:
 		replyTypedMap_1Call();
 		replyTypedMap_2Call();
 		replyTypedMap_3Call();
+
+		//
+		// objects
+		//
+		replyObject_0Call();
+		replyObject_16Call();
+		replyObject_1Call();
+		replyObject_2Call();
+		replyObject_2aCall();
+		replyObject_2bCall();
+		replyObject_3Call();
 	}
 
 	void methodNull() {
@@ -296,6 +307,55 @@ public:
 
 		QHessian::QHessianMethodCall call("replyTypedMap_3");
 		call.invoke(networkManager, urlTest2, this, SLOT(replyTypedMap_3()), SLOT(error(int, const QString&)));
+	}
+
+	void replyObject_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyObject_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyObject_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyObject_16Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyObject_16");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyObject_16()), SLOT(error(int, const QString&)));
+	}
+
+	void replyObject_1Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyObject_1");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyObject_1()), SLOT(error(int, const QString&)));
+	}
+
+	void replyObject_2Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyObject_2");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyObject_2()), SLOT(error(int, const QString&)));
+	}
+
+	void replyObject_2aCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyObject_2a");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyObject_2a()), SLOT(error(int, const QString&)));
+	}
+
+	void replyObject_2bCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyObject_2b");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyObject_2b()), SLOT(error(int, const QString&)));
+	}
+
+	void replyObject_3Call(){
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyObject_3");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyObject_3()), SLOT(error(int, const QString&)));
 	}
 
 public slots:
@@ -723,6 +783,158 @@ public slots:
 
 	    parser >> EndMap();
         parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyObject_0() {
+		using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginObject("", "com.caucho.hessian.test.A0")
+        	   >> EndObject();
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyObject_16() {
+		using namespace QHessian::out;
+
+		qint32 size;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginCollection(size);
+
+        for (int i=0; i<size; ++i) {
+        	parser
+        		>> BeginObject("", std::string("com.caucho.hessian.test.A")+QString::number(i).toStdString())
+        		>> EndObject();
+        }
+        parser >> EndCollection();
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyObject_1() {
+		using namespace QHessian::out;
+
+		qint32 _value;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser
+        	>> BeginObject("", "com.caucho.hessian.test.TestObject")
+        		>> Integer("_value", _value)
+        	>> EndObject();
+        parser.deleteLater();
+
+        COMPARE(_value, 0)
+
+		TEST_END
+	}
+
+	void replyObject_2() {
+		using namespace QHessian::out;
+
+		qint32 size;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginCollection(size);
+
+        for (int i=0; i<size; ++i){
+			qint32 _value;
+        	parser 	>> BeginObject("", "com.caucho.hessian.test.TestObject")
+        				>> Integer("_value", _value)
+        			>> EndObject();
+
+        	COMPARE(_value, i)
+        }
+
+        parser >> EndCollection();
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyObject_2a() {
+		using namespace QHessian::out;
+
+		qint32 size;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginCollection(size);
+
+        COMPARE(size, 2)
+
+        qint32 _value;
+
+		parser 	>> BeginObject("", "com.caucho.hessian.test.TestObject")
+					>> Integer("_value", _value)
+				>> EndObject();
+
+		COMPARE(_value, 0)
+
+		qint32 	refTo;
+
+		parser  >> Ref(refTo);
+
+		COMPARE(parser.wasNull(), false);
+		COMPARE(refTo, 1);
+
+        parser >> EndCollection();
+        parser.deleteLater();
+
+		TEST_END
+	}
+
+	void replyObject_2b() {
+		using namespace QHessian::out;
+
+		qint32 size;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> BeginCollection(size);
+
+        COMPARE(size, 2)
+
+        qint32 _value;
+
+		parser 	>> BeginObject("", "com.caucho.hessian.test.TestObject")
+					>> Integer("_value", _value)
+				>> EndObject();
+
+		COMPARE(_value, 0)
+
+		parser 	>> BeginObject("", "com.caucho.hessian.test.TestObject")
+					>> Integer("_value", _value)
+				>> EndObject();
+
+		COMPARE(_value, 0)
+
+		TEST_END
+	}
+
+	void replyObject_3(){
+		using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+
+        QString first;
+        qint32  ref;
+
+		parser 	>> BeginObject("", "com.caucho.hessian.test.TestCons");
+		parser	>> Ref("_first", ref);
+		COMPARE(parser.wasNull(), true);
+		parser	>> String("_first", first);
+		parser	>> Ref("_rest", ref);
+		COMPARE(parser.wasNull(), false);
+		parser	>> EndObject();
+
+		COMPARE(first, QString("a"))
+		COMPARE(ref, 	 0)
+
+		parser.deleteLater();
 
 		TEST_END
 	}

@@ -14,6 +14,14 @@ namespace QHessian {
 #define EXCEPTION(cause) \
 	throw std::runtime_error(cause + std::string(" in ") + std::string(__FILE__) + std::string(", line ") + QString::number(__LINE__).toStdString());
 
+#define SAVE_STATE() \
+	int    oldOffset 	= replyOffset; \
+	char*  oldPostion 	= replyArray;
+
+#define RESTORE_STATE() \
+	replyOffset = oldOffset;\
+	replyArray  = oldPostion;
+
 const static char REPLY_TAG = 'r';
 const static char FAULT_TAG = 'f';
 
@@ -65,52 +73,52 @@ void QHessianReturnParser::finished() {
 	reply->deleteLater();
 }
 
-inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
+inline void QHessianReturnParser::readNext(IProperty& property) {
 	using namespace out;
 
-	IProperty* property = properties.takeFirst();
+	lastReadWasNull = false;
 
-	switch (property->getType()) {
+	switch (property.getType()) {
 		case BINARY:
-			expectString(((Binary*) property)->getName());
-			readBytes(((Binary*) property)->getValue());
+			expectString(((Binary&) property).getName());
+			readBytes(((Binary&) property).getValue());
 
 			break;
 
 		case BOOLEAN:
-			expectString(((Boolean*) property)->getName());
-			readBool(((Boolean*) property)->getValue());
+			expectString(((Boolean&) property).getName());
+			readBool(((Boolean&) property).getValue());
 
 			break;
 
 		case INTEGER:
-			expectString(((Integer*) property)->getName());
+			expectString(((Integer&) property).getName());
 			expect(INTEGER_TAG, "QHessianReturnParser::readNext: Expected Integer ('I') tag");
-			readInt(((Integer*) property)->getValue());
+			readInt(((Integer&) property).getValue());
 			break;
 
 		case LONG:
-			expectString(((Long*) property)->getName());
+			expectString(((Long&) property).getName());
 			expect('L', "QHessianReturnParser::readNext: Expected Long ('L') tag");
-			readLong(((Long*) property)->getValue());
+			readLong(((Long&) property).getValue());
 			break;
 
 		case DOUBLE:
-			expectString(((Double*) property)->getName());
+			expectString(((Double&) property).getName());
 		    expect('D', "QHessianReturnParser::readNext: Expected Double ('D') tag");
-		    readDouble(((Double*) property)->getValue());
+		    readDouble(((Double&) property).getValue());
 
 			break;
 
 		case STRING: {
-			expectString(((String*) property)->getName());
-			readString(((String*) property)->getValue());
+			expectString(((String&) property).getName());
+			readString(((String&) property).getValue());
 		} break;
 
 		case DATE: {
-			expectString(((DateTime*) property)->getName());
+			expectString(((DateTime&) property).getName());
 
-			QDateTime& dateTime = ((DateTime*) property)->getValue();
+			QDateTime& dateTime = ((DateTime&) property).getValue();
 
 		    expect('d');
 		    qint64 millis;
@@ -120,25 +128,25 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 		} break;
 
 		case BEGIN_COLLECTION: {
-			BeginCollection* collection = (BeginCollection*) property;
-	        expectString(collection->getName());
-	        readCollection(*collection);
+			BeginCollection& collection = (BeginCollection&) property;
+	        expectString(collection.getName());
+	        readCollection(collection);
 		} break;
 
 		case BEGIN_MAP: {
-			BeginMap* map = (BeginMap*) property;
-			expectString(map->getName());
-			readMap(*map);
+			BeginMap& map = (BeginMap&) property;
+			expectString(map.getName());
+			readMap(map);
 		} break;
 
 		case HAS_MORE_MAP: {
-			((HasMoreMap*) property)->getValue() = (peek() != 'z');
+			((HasMoreMap&) property).getValue() = (peek() != 'z');
 		} break;
 
 		case BEGIN_OBJECT: {
 		    expect(OBJECT_TAG, "QHessianReturnParser::readObject: Excepted Object ('M') tag");
 		    if (peek('t')) {
-		        expectStdString(((BeginObject*) property)->getValue());
+		        expectStdString(((BeginObject&) property).getValue());
 		    }
 		} break;
 
@@ -147,9 +155,18 @@ inline void QHessianReturnParser::readNext(QList<IProperty*>& properties) {
 		case END_COLLECTION: {
 		    expect('z', "QHessianReturnParser::Excepted end ('z') tag");
 		} break;
-	}
 
-	delete property;
+		case REF: {
+			SAVE_STATE()
+			if (peekString(((Ref&) property).getName()) && peek('R')) {
+				readInt(((Ref&) property).getValue());
+			} else { //no reference
+				RESTORE_STATE()
+				lastReadWasNull = true;
+			}
+
+		} break;
+	}
 }
 
 inline void QHessianReturnParser::readString(QString& string) {
@@ -417,6 +434,18 @@ inline void QHessianReturnParser::expectString(const QString& string) {
 	}
 }
 
+inline bool QHessianReturnParser::peekString(const QString& string) {
+	SAVE_STATE()
+	try {
+		expectString(string);
+	} catch (...) {
+		RESTORE_STATE()
+		return false;
+	}
+
+	return true;
+}
+
 
 inline void QHessianReturnParser::expectStdString(const std::string& string) {
 	if (string.length() > 0) {
@@ -432,12 +461,14 @@ inline void QHessianReturnParser::expectStdString(const std::string& string) {
 }
 
 QHessianReturnParser &QHessianReturnParser::operator>>(const IProperty& property) {
-//	properties.push_back(property.clone());
-	//FIXME
-	QList<IProperty*> props;
-	props.append(property.clone());
-	readNext(props);
+	IProperty* copy = property.clone();
+	readNext(*copy);
+	delete copy;
 	return *this;
+}
+
+bool QHessianReturnParser::wasNull() const {
+	return lastReadWasNull;
 }
 
 }
