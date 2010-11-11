@@ -39,6 +39,14 @@ public:
 		argBinary_1023Call();
 		argBinary_1024Call();
 		argBinary_65536Call();
+
+		//
+		// lists
+		//
+		argUntypedFixedList_0Call();
+		argUntypedFixedList_1Call();
+		argUntypedFixedList_7Call();
+		argUntypedFixedList_8Call();
 	}
 
 	void methodNull() {
@@ -122,6 +130,66 @@ public:
 		call.invoke(networkManager, urlTest2, this, SLOT(argBinary_65536()), SLOT(error(int, const QString&)));
 	}
 
+	void argUntypedFixedList_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+		QHessian::QHessianMethodCall call("argUntypedFixedList_0");
+		call << BeginCollection(0)
+			 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argUntypedFixedList_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argUntypedFixedList_1Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+		QHessian::QHessianMethodCall call("argUntypedFixedList_1");
+		call << BeginCollection(7)
+				<< String("1")
+			 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argUntypedFixedList_1()), SLOT(error(int, const QString&)));
+	}
+
+	void argUntypedFixedList_7Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+		QHessian::QHessianMethodCall call("argUntypedFixedList_7");
+		call << BeginCollection(7)
+				<< String("1")
+				<< String("2")
+				<< String("3")
+				<< String("4")
+				<< String("5")
+				<< String("6")
+				<< String("7")
+			 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argUntypedFixedList_7()), SLOT(error(int, const QString&)));
+	}
+
+	void argUntypedFixedList_8Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+		QHessian::QHessianMethodCall call("argUntypedFixedList_8");
+		call << BeginCollection(7)
+				<< String("1")
+				<< String("2")
+				<< String("3")
+				<< String("4")
+				<< String("5")
+				<< String("6")
+				<< String("7")
+				<< String("8")
+			 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argUntypedFixedList_8()), SLOT(error(int, const QString&)));
+	}
+
 
 public slots:
 	void replyNullCall() {
@@ -153,6 +221,22 @@ public slots:
 	}
 
 	void argBinary_65536() {
+		EXCEPT_TRUE
+	}
+
+	void argUntypedFixedList_0() {
+		EXCEPT_TRUE
+	}
+
+	void argUntypedFixedList_1() {
+		EXCEPT_TRUE
+	}
+
+	void argUntypedFixedList_7() {
+		EXCEPT_TRUE
+	}
+
+	void argUntypedFixedList_8() {
 		EXCEPT_TRUE
 	}
 

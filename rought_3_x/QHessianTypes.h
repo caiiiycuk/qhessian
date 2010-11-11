@@ -165,6 +165,10 @@ namespace in {
 	typedef Property<STRING, QString> 					String;
 	typedef Property<DATE, QDateTime> 					DateTime;
 	typedef Property<BINARY, QString>					Binary;
+
+	typedef TypedProperty<BEGIN_COLLECTION, qint32>		BeginCollection;
+	typedef EmptyProperty<END_COLLECTION>				EndCollection;
+
 	typedef Property<BEGIN_OBJECT, std::string> 		BeginObject;
 	typedef EmptyProperty<END_OBJECT> 					EndObject;
 

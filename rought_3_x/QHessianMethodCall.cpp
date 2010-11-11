@@ -177,11 +177,17 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 			writeBinary(((Binary&) object).getValue().toStdString());
 		break;
 
+		case BEGIN_COLLECTION: {
+			writePropetyName(((BeginCollection&) object).getName());
+			stream.append('V');
+		} break;
+
 		case BEGIN_OBJECT:
 			writeObject(((BeginObject&) object).getValue());
 			return *this;
 		break;
 
+		case END_COLLECTION:
 		case END_OBJECT:
 			stream.append('z');
 			return *this;
