@@ -10,6 +10,7 @@
 
 #include "QSanityCheckTest.h"
 #include "QCauchoTest.h"
+#include "QCauchoTest2.h"
 
 int main(int argc, char **argv) {
     QCoreApplication app(argc, argv);
@@ -18,6 +19,7 @@ int main(int argc, char **argv) {
 
     QSanityCheckTest 	sanityTest;
     QCauchoTest 		cauchoTest;
+    QCauchoTest2 		cauchoTest2;
 
     while (WAIT_FOR_TEST) {
     	QCoreApplication::processEvents();

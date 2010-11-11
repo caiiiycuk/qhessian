@@ -36,7 +36,7 @@ void QHessianMethodCall::invoke(QNetworkAccessManager& networkManager,
 	QObject::connect(parser, SIGNAL(error(int, const QString&)), reciver, errorSlot);
 }
 
-void QHessianMethodCall::writeName(const std::string& name) {
+void QHessianMethodCall::writeStdString(const std::string& name) {
 	qint16 length = name.length();
 
 	stream.append(static_cast<char>((length >> 8) & 0xFF));
@@ -77,7 +77,7 @@ QHessianMethodCall::QHessianMethodCall(const QString& methodName) {
 	writeCall();
 
 	//--write call method name
-	writeName(methodName.toStdString());
+	writeStdString(methodName.toStdString());
 }
 
 QHessianMethodCall::~QHessianMethodCall() {
@@ -125,7 +125,21 @@ inline void QHessianMethodCall::writeDouble(const qreal& value) {
 inline void QHessianMethodCall::writeObject(const std::string& object) {
 	stream.append('M');
 	stream.append('t');
-	writeName(object);
+	writeStdString(object);
+}
+
+void QHessianMethodCall::writeBinary(const std::string& bytes) {
+	size_t l_bytesLen = bytes.size();
+	size_t l_pos = 0;
+	while(l_bytesLen > 0x8000) {
+		size_t l_sublen = 0x8000;
+		stream.append('b');
+		writeStdString(bytes.substr(l_pos, l_sublen));
+		l_bytesLen -= l_sublen;
+		l_pos += l_sublen;
+	}
+	stream.append('B');
+	writeStdString(bytes.substr(l_pos, l_bytesLen));
 }
 
 QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
@@ -156,6 +170,11 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 		case STRING:
 			writePropetyName(((String&) object).getName());
 			writeString(((String&) object).getValue());
+		break;
+
+		case BINARY:
+			writePropetyName(((Binary&) object).getName());
+			writeBinary(((Binary&) object).getValue().toStdString());
 		break;
 
 		case BEGIN_OBJECT:

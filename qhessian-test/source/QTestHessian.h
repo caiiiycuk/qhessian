@@ -89,4 +89,54 @@ static void compare(bool const& a, bool const& b, const char * actual, const cha
 #define TEST_END		TestCounter::instance().dec();
 #define WAIT_FOR_TEST	TestCounter::instance().hasMoreTests()
 
+namespace {
+	QString generateString(long length) {
+        QString excepted;
+
+        if (length < 1025) {
+			for (int i = 0; i < 16; i++) {
+			  excepted
+				  .append(QString::number(i / 10))
+				  .append(QString::number(i % 10))
+				  .append(" 456789012345678901234567890123456789012345678901234567890123\n");
+			}
+        } else {
+			for (int i = 0; i < 16 * 64; i++) {
+			  excepted
+				  .append(QString::number(i / 100))
+				  .append(QString::number(i / 10 % 10))
+				  .append(QString::number(i % 10))
+				  .append(" 56789012345678901234567890123456789012345678901234567890123\n");
+			}
+        }
+
+        excepted.truncate(length);
+
+        return excepted;
+	}
+
+	void compareFixedList(QHessian::QHessianReturnParser& parser, int realSize, bool untyped) {
+		using namespace QHessian::out;
+
+		qint32 collectionSize;
+
+		if (untyped) {
+			parser >> BeginCollection(collectionSize);
+		} else {
+			parser >> BeginCollection("", "[string", collectionSize);
+		}
+
+		COMPARE(collectionSize, realSize)
+
+		for (int i=0; i<collectionSize; ++i) {
+			QString value;
+			parser >> String(value);
+
+			COMPARE(value, QString::number(i+1));
+		}
+
+		parser >> EndCollection();
+	}
+}
+
 #endif /* QTESTHESSIAN_H_ */

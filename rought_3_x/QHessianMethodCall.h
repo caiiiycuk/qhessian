@@ -23,7 +23,7 @@ protected:
 	QByteArray stream;
 
 	void writeCall();
-	void writeName(const std::string&);
+	void writeStdString(const std::string&);
 	void writePropetyName(const QString&);
 
 	void writeBool(const bool& );
@@ -32,6 +32,7 @@ protected:
 	void writeLong(const qint64& );
 	void writeInt(const qint32& );
 	void writeDouble(const qreal& );
+	void writeBinary(const std::string& );
 
 	void writeObject(const std::string&);
 
