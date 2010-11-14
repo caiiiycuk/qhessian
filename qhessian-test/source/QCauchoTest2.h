@@ -48,13 +48,21 @@ public:
 		argUntypedFixedList_7Call();
 		argUntypedFixedList_8Call();
 
-                //
-                // typed list
-                //
-                argTypedFixedList_0Call();
-                argTypedFixedList_1Call();
-                argTypedFixedList_7Call();
-                argTypedFixedList_8Call();
+		//
+		// typed list
+		//
+		argTypedFixedList_0Call();
+		argTypedFixedList_1Call();
+		argTypedFixedList_7Call();
+		argTypedFixedList_8Call();
+
+		//
+		// untyped maps
+		//
+		argUntypedMap_0Call();
+		argUntypedMap_1Call();
+		argUntypedMap_2Call();
+		argUntypedMap_3Call();
 	}
 
 	void methodNull() {
@@ -198,65 +206,114 @@ public:
 		call.invoke(networkManager, urlTest2, this, SLOT(argUntypedFixedList_8()), SLOT(error(int, const QString&)));
 	}
 
-        void argTypedFixedList_0Call() {
-            TEST_START
+	void argTypedFixedList_0Call() {
+		TEST_START
 
-            using namespace QHessian::in;
+		using namespace QHessian::in;
 
-            QHessian::QHessianMethodCall call("argTypedFixedList_0");
-            call << BeginCollection("", "[string", 0)
-                 << EndCollection();
-            call.invoke(networkManager, urlTest2, this, SLOT(argTypedFixedList_0()), SLOT(error(int, const QString&)));
-        }
+		QHessian::QHessianMethodCall call("argTypedFixedList_0");
+		call << BeginCollection("", "[string", 0)
+			 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argTypedFixedList_0()), SLOT(error(int, const QString&)));
+	}
 
-        void argTypedFixedList_1Call() {
-            TEST_START
+	void argTypedFixedList_1Call() {
+		TEST_START
 
-            using namespace QHessian::in;
+		using namespace QHessian::in;
 
-            QHessian::QHessianMethodCall call("argTypedFixedList_1");
-            call << BeginCollection("", "[string", 1)
-                            << String("1")
-                     << EndCollection();
-            call.invoke(networkManager, urlTest2, this, SLOT(argTypedFixedList_1()), SLOT(error(int, const QString&)));
-        }
+		QHessian::QHessianMethodCall call("argTypedFixedList_1");
+		call << BeginCollection("", "[string", 1)
+						<< String("1")
+				 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argTypedFixedList_1()), SLOT(error(int, const QString&)));
+	}
 
-        void argTypedFixedList_7Call() {
-            TEST_START
+	void argTypedFixedList_7Call() {
+		TEST_START
 
-            using namespace QHessian::in;
+		using namespace QHessian::in;
 
-            QHessian::QHessianMethodCall call("argTypedFixedList_7");
-            call << BeginCollection("", "[string", 7)
-                            << String("1")
-                            << String("2")
-                            << String("3")
-                            << String("4")
-                            << String("5")
-                            << String("6")
-                            << String("7")
-                     << EndCollection();
-            call.invoke(networkManager, urlTest2, this, SLOT(argTypedFixedList_7()), SLOT(error(int, const QString&)));
-        }
+		QHessian::QHessianMethodCall call("argTypedFixedList_7");
+		call << BeginCollection("", "[string", 7)
+						<< String("1")
+						<< String("2")
+						<< String("3")
+						<< String("4")
+						<< String("5")
+						<< String("6")
+						<< String("7")
+				 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argTypedFixedList_7()), SLOT(error(int, const QString&)));
+	}
 
-        void argTypedFixedList_8Call() {
-            TEST_START
+	void argTypedFixedList_8Call() {
+		TEST_START
 
-            using namespace QHessian::in;
+		using namespace QHessian::in;
 
-            QHessian::QHessianMethodCall call("argTypedFixedList_8");
-            call << BeginCollection("", "[string", 8)
-                            << String("1")
-                            << String("2")
-                            << String("3")
-                            << String("4")
-                            << String("5")
-                            << String("6")
-                            << String("7")
-                            << String("8")
-                     << EndCollection();
-            call.invoke(networkManager, urlTest2, this, SLOT(argTypedFixedList_8()), SLOT(error(int, const QString&)));
-        }
+		QHessian::QHessianMethodCall call("argTypedFixedList_8");
+		call << BeginCollection("", "[string", 8)
+						<< String("1")
+						<< String("2")
+						<< String("3")
+						<< String("4")
+						<< String("5")
+						<< String("6")
+						<< String("7")
+						<< String("8")
+				 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argTypedFixedList_8()), SLOT(error(int, const QString&)));
+	}
+
+	void argUntypedMap_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argUntypedMap_0");
+		call << BeginMap()
+			 << EndMap();
+		call.invoke(networkManager, urlTest2, this, SLOT(argUntypedMap_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argUntypedMap_1Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argUntypedMap_1");
+		call << BeginMap()
+					<< String("a") << Integer(0) // key == a, value == 0
+			 << EndMap();
+		call.invoke(networkManager, urlTest2, this, SLOT(argUntypedMap_1()), SLOT(error(int, const QString&)));
+	}
+
+	void argUntypedMap_2Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argUntypedMap_2");
+		call << BeginMap()
+					<< Integer(0) << String("a") // key == 0, value == a
+					<< Integer(1) << String("b") // key == 1, value == b
+			 << EndMap();
+		call.invoke(networkManager, urlTest2, this, SLOT(argUntypedMap_2()), SLOT(error(int, const QString&)));
+	}
+
+	void argUntypedMap_3Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argUntypedMap_3");
+		call << BeginMap()
+				//KEY
+				<< BeginCollection(1)
+				<< String("a")
+				<< EndCollection()
+				//VALUE
+				<< Integer(0)
+			 << EndMap();
+		call.invoke(networkManager, urlTest2, this, SLOT(argUntypedMap_3()), SLOT(error(int, const QString&)));
+	}
 
 
 public slots:
@@ -308,21 +365,37 @@ public slots:
 		EXCEPT_TRUE
 	}
 
-        void argTypedFixedList_0() {
-            EXCEPT_TRUE
-        }
+	void argTypedFixedList_0() {
+		EXCEPT_TRUE
+	}
 
-        void argTypedFixedList_1() {
-            EXCEPT_TRUE
-        }
+	void argTypedFixedList_1() {
+		EXCEPT_TRUE
+	}
 
-        void argTypedFixedList_7() {
-            EXCEPT_TRUE
-        }
+	void argTypedFixedList_7() {
+		EXCEPT_TRUE
+	}
 
-        void argTypedFixedList_8() {
-            EXCEPT_TRUE
-        }
+	void argTypedFixedList_8() {
+		EXCEPT_TRUE
+	}
+
+	void argUntypedMap_0() {
+		EXCEPT_TRUE
+	}
+
+	void argUntypedMap_1() {
+		EXCEPT_TRUE
+	}
+
+	void argUntypedMap_2() {
+		EXCEPT_TRUE
+	}
+
+	void argUntypedMap_3() {
+		EXCEPT_TRUE
+	}
 
 	void error(int, const QString& string) {
 		throw std::runtime_error("QHessian error: " + string.toStdString());

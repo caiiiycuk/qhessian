@@ -169,6 +169,10 @@ namespace in {
 	typedef TypedProperty<BEGIN_COLLECTION, qint32>		BeginCollection;
 	typedef EmptyProperty<END_COLLECTION>				EndCollection;
 
+	typedef BeginMapProperty							BeginMap;
+	typedef EmptyProperty<END_MAP>						EndMap;
+
+
 	typedef Property<BEGIN_OBJECT, std::string> 		BeginObject;
 	typedef EmptyProperty<END_OBJECT> 					EndObject;
 

@@ -178,27 +178,34 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 		break;
 
 		case BEGIN_COLLECTION: {
-                        BeginCollection& collcetion = (BeginCollection&) object;
+			BeginCollection& collcetion = (BeginCollection&) object;
 			writePropetyName(collcetion.getName());
 			stream.append('V');
-                        if (collcetion.getTypeName().length()) {
-                            stream.append('t');
-                            writeStdString(collcetion.getTypeName().toStdString());
-                        }
-                        stream.append("l");
-                        writeInt(collcetion.getValue());
+			if (collcetion.getTypeName().length()) {
+				stream.append('t');
+				writeStdString(collcetion.getTypeName().toStdString());
+			}
+			stream.append("l");
+			writeInt(collcetion.getValue());
 		} break;
 
-		case BEGIN_OBJECT:
+		case BEGIN_OBJECT: {
 			writeObject(((BeginObject&) object).getValue());
 			return *this;
-		break;
+		} break;
 
+		case BEGIN_MAP: {
+			BeginMapProperty& map = (BeginMapProperty&) object;
+			writePropetyName(map.getName());
+			stream.append("M");
+		} break;
+
+		case END_MAP:
 		case END_COLLECTION:
-		case END_OBJECT:
+		case END_OBJECT: {
 			stream.append('z');
 			return *this;
-		break;
+		} break;
 	}
 
 	return *this;
