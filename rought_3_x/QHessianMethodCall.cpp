@@ -198,6 +198,10 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 			BeginMapProperty& map = (BeginMapProperty&) object;
 			writePropetyName(map.getName());
 			stream.append("M");
+			if (map.getTypeName().length()) {
+				stream.append("t");
+				writeStdString(map.getName().toStdString());
+			}
 		} break;
 
 		case END_MAP:

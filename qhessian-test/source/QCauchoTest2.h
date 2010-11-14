@@ -63,6 +63,14 @@ public:
 		argUntypedMap_1Call();
 		argUntypedMap_2Call();
 		argUntypedMap_3Call();
+
+		//
+		// typed maps
+		//
+		argTypedMap_0Call();
+		argTypedMap_1Call();
+		argTypedMap_2Call();
+		argTypedMap_3Call();
 	}
 
 	void methodNull() {
@@ -315,6 +323,54 @@ public:
 		call.invoke(networkManager, urlTest2, this, SLOT(argUntypedMap_3()), SLOT(error(int, const QString&)));
 	}
 
+	void argTypedMap_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argTypedMap_0");
+		call << BeginMap("", "java.util.Hashtable")
+			 << EndMap();
+		call.invoke(networkManager, urlTest2, this, SLOT(argTypedMap_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argTypedMap_1Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argTypedMap_1");
+		call << BeginMap("", "java.util.Hashtable")
+				<< String("a") << Integer(0)  // key == a, value == 0
+			 << EndMap();
+		call.invoke(networkManager, urlTest2, this, SLOT(argTypedMap_1()), SLOT(error(int, const QString&)));
+	}
+
+	void argTypedMap_2Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argTypedMap_2");
+		call << BeginMap("", "java.util.Hashtable")
+					<< Integer(0) << String("a") // key == 0, value == a
+					<< Integer(1) << String("b") // key == 1, value == b
+			 << EndMap();
+		call.invoke(networkManager, urlTest2, this, SLOT(argTypedMap_2()), SLOT(error(int, const QString&)));
+	}
+
+	void argTypedMap_3Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argTypedMap_3");
+		call << BeginMap("", "java.util.Hashtable")
+						//KEY
+						<< BeginCollection(1)
+						<< String("a")
+						<< EndCollection()
+						//VALUE
+						<< Integer(0)
+					 << EndMap();
+		call.invoke(networkManager, urlTest2, this, SLOT(argTypedMap_3()), SLOT(error(int, const QString&)));
+	}
 
 public slots:
 	void replyNullCall() {
@@ -394,6 +450,22 @@ public slots:
 	}
 
 	void argUntypedMap_3() {
+		EXCEPT_TRUE
+	}
+
+	void argTypedMap_0() {
+		EXCEPT_TRUE
+	}
+
+	void argTypedMap_1() {
+		EXCEPT_TRUE
+	}
+
+	void argTypedMap_2() {
+		EXCEPT_TRUE
+	}
+
+	void argTypedMap_3() {
 		EXCEPT_TRUE
 	}
 
