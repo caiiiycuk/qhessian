@@ -98,7 +98,6 @@ inline void QHessianMethodCall::writeString(const QString& value) {
 }
 
 inline void QHessianMethodCall::writeLong(const qint64& value) {
-	stream.append('L');
 	stream.append(static_cast<char>((value >> 56) & 0xFF));
 	stream.append(static_cast<char>((value >> 48) & 0xFF));
 	stream.append(static_cast<char>((value >> 40) & 0xFF));
@@ -110,7 +109,6 @@ inline void QHessianMethodCall::writeLong(const qint64& value) {
 }
 
 inline void QHessianMethodCall::writeInt(const qint32& value) {
-	stream.append('I');
 	stream.append(static_cast<char>((value >> 24) & 0xFF));
 	stream.append(static_cast<char>((value >> 16) & 0xFF));
 	stream.append(static_cast<char>((value >> 8) & 0xFF));
@@ -118,7 +116,6 @@ inline void QHessianMethodCall::writeInt(const qint32& value) {
 }
 
 inline void QHessianMethodCall::writeDouble(const qreal& value) {
-    stream.append('D');
     stream.append(reinterpret_cast<const char *>(&value), sizeof(value));
 }
 
@@ -153,16 +150,19 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 		break;
 
 		case INTEGER:
+                    	stream.append('I');
 			writePropetyName(((Integer&) object).getName());
 			writeInt(((Integer&) object).getValue());
 		break;
 
 		case LONG:
+                        stream.append('L');
 			writePropetyName(((Long&) object).getName());
 			writeLong(((Long&) object).getValue());
 		break;
 
 		case DOUBLE:
+                        stream.append('D');
 			writePropetyName(((Double&) object).getName());
 			writeDouble(((Double&) object).getValue());
 		break;
@@ -178,8 +178,15 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 		break;
 
 		case BEGIN_COLLECTION: {
-			writePropetyName(((BeginCollection&) object).getName());
+                        BeginCollection& collcetion = (BeginCollection&) object;
+			writePropetyName(collcetion.getName());
 			stream.append('V');
+                        if (collcetion.getTypeName().length()) {
+                            stream.append('t');
+                            writeStdString(collcetion.getTypeName().toStdString());
+                        }
+                        stream.append("l");
+                        writeInt(collcetion.getValue());
 		} break;
 
 		case BEGIN_OBJECT:
