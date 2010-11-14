@@ -150,20 +150,20 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 		break;
 
 		case INTEGER:
-                    	stream.append('I');
 			writePropetyName(((Integer&) object).getName());
+			stream.append('I');
 			writeInt(((Integer&) object).getValue());
 		break;
 
 		case LONG:
-                        stream.append('L');
 			writePropetyName(((Long&) object).getName());
+			stream.append('L');
 			writeLong(((Long&) object).getValue());
 		break;
 
 		case DOUBLE:
-                        stream.append('D');
 			writePropetyName(((Double&) object).getName());
+			stream.append('D');
 			writeDouble(((Double&) object).getValue());
 		break;
 
@@ -190,6 +190,7 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 		} break;
 
 		case BEGIN_OBJECT: {
+			writePropetyName(((BeginObject&) object).getName());
 			writeObject(((BeginObject&) object).getValue());
 			return *this;
 		} break;
@@ -202,6 +203,13 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 				stream.append("t");
 				writeStdString(map.getName().toStdString());
 			}
+		} break;
+
+		case REF: {
+			Ref& ref = (Ref&) object;
+			writePropetyName(ref.getName());
+			stream.append('R');
+			writeInt(ref.getValue());
 		} break;
 
 		case END_MAP:
