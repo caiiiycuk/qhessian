@@ -176,6 +176,7 @@ namespace in {
 	typedef Property<BEGIN_OBJECT, std::string> 		BeginObject;
 	typedef EmptyProperty<END_OBJECT> 					EndObject;
 
+	typedef Property<REF, qint32> 						Ref;
 }
 
 namespace out {

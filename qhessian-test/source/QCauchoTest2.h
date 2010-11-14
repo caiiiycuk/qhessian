@@ -71,6 +71,17 @@ public:
 		argTypedMap_1Call();
 		argTypedMap_2Call();
 		argTypedMap_3Call();
+
+		//
+		// objects
+		//
+		argObject_0Call();
+		argObject_16Call();
+		argObject_1Call();
+		argObject_2Call();
+		argObject_2aCall();
+		argObject_2bCall();
+		argObject_3Call();
 	}
 
 	void methodNull() {
@@ -372,6 +383,131 @@ public:
 		call.invoke(networkManager, urlTest2, this, SLOT(argTypedMap_3()), SLOT(error(int, const QString&)));
 	}
 
+	void argObject_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argObject_0");
+		call << BeginObject("com.caucho.hessian.test.A0")
+			 << EndObject();
+		call.invoke(networkManager, urlTest2, this, SLOT(argObject_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argObject_16Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argObject_16");
+
+		call << BeginCollection(17)
+				<< BeginObject("com.caucho.hessian.test.A0")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A1")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A2")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A3")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A4")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A5")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A6")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A7")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A8")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A9")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A10")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A11")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A12")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A13")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A14")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A15")
+				<< EndObject()
+				<< BeginObject("com.caucho.hessian.test.A16")
+				<< EndObject()
+			 << EndCollection();
+
+		call.invoke(networkManager, urlTest2, this, SLOT(argObject_16()), SLOT(error(int, const QString&)));
+	}
+
+	void argObject_1Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argObject_1");
+		call << BeginObject("com.caucho.hessian.test.TestObject")
+				<< Integer("_value", 0)
+			 << EndObject();
+		call.invoke(networkManager, urlTest2, this, SLOT(argObject_1()), SLOT(error(int, const QString&)));
+	}
+
+	void argObject_2Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argObject_2");
+		call << BeginCollection(2)
+				 << BeginObject("com.caucho.hessian.test.TestObject")
+					<< Integer("_value", 0)
+				 << EndObject()
+				 << BeginObject("com.caucho.hessian.test.TestObject")
+					<< Integer("_value", 1)
+				 << EndObject()
+			 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argObject_2()), SLOT(error(int, const QString&)));
+	}
+
+	void argObject_2aCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argObject_2a");
+		call << BeginCollection(2) 	// first object
+				 << BeginObject("com.caucho.hessian.test.TestObject") 	//
+					<< Integer("_value", 0)								// secong object (first is list)
+				 << EndObject()											//
+				 << Ref(1)			// ref to com.caucho.hessian.test.TestObject
+			 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argObject_2a()), SLOT(error(int, const QString&)));
+	}
+
+	void argObject_2bCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argObject_2b");
+		call << BeginCollection(2)
+				 << BeginObject("com.caucho.hessian.test.TestObject")
+					<< Integer("_value", 0)
+				 << EndObject()
+				 << BeginObject("com.caucho.hessian.test.TestObject")
+					<< Integer("_value", 0)
+				 << EndObject()
+			 << EndCollection();
+		call.invoke(networkManager, urlTest2, this, SLOT(argObject_2b()), SLOT(error(int, const QString&)));
+	}
+
+	void argObject_3Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+		QHessian::QHessianMethodCall call("argObject_3");
+		call << BeginObject("com.caucho.hessian.test.TestCons")
+				<< String("_first", "a")
+				<< Ref("_rest", 0)			// ref tocom.caucho.hessian.test.TestCons
+			 << EndObject();
+		call.invoke(networkManager, urlTest2, this, SLOT(argObject_3()), SLOT(error(int, const QString&)));
+	}
+
 public slots:
 	void replyNullCall() {
 		TEST_END
@@ -466,6 +602,34 @@ public slots:
 	}
 
 	void argTypedMap_3() {
+		EXCEPT_TRUE
+	}
+
+	void argObject_0() {
+		EXCEPT_TRUE
+	}
+
+	void argObject_16() {
+		EXCEPT_TRUE
+	}
+
+	void argObject_1() {
+		EXCEPT_TRUE
+	}
+
+	void argObject_2() {
+		EXCEPT_TRUE
+	}
+
+	void argObject_2a() {
+		EXCEPT_TRUE
+	}
+
+	void argObject_2b() {
+		EXCEPT_TRUE
+	}
+
+	void argObject_3() {
 		EXCEPT_TRUE
 	}
 
