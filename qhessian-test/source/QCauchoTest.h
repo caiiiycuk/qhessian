@@ -22,6 +22,90 @@ public:
 		replyNull();
 
 		//
+		// booleans
+		//
+		replyTrueCall();
+		replyFalseCall();
+
+		//
+		// integers
+		//
+		replyInt_0Call();
+		replyInt_1Call();
+		replyInt_47Call();
+		replyInt_m16Call();
+		replyInt_0x30Call();
+		replyInt_0x7ffCall();
+		replyInt_m17Call();
+		replyInt_m0x800Call();
+		replyInt_0x800Call();
+		replyInt_0x3ffffCall();
+		replyInt_m0x801Call();
+		replyInt_m0x40000Call();
+		replyInt_0x40000Call();
+		replyInt_0x7fffffffCall();
+		replyInt_m0x40001Call();
+		replyInt_m0x80000000Call();
+
+		//
+		// longs
+		//
+		replyLong_0Call();
+		replyLong_1Call();
+		replyLong_15Call();
+		replyLong_m8Call();
+		replyLong_0x10Call();
+		replyLong_0x7ffCall();
+		replyLong_m9Call();
+		replyLong_m0x800Call();
+		replyLong_0x800Call();
+		replyLong_0x3ffffCall();
+		replyLong_m0x801Call();
+		replyLong_m0x40000Call();
+		replyLong_0x40000Call();
+		replyLong_0x7fffffffCall();
+		replyLong_m0x40001Call();
+		replyLong_m0x80000000Call();
+		replyLong_0x80000000Call();
+		replyLong_m0x80000001Call();
+
+		//
+		// doubles
+		//
+		replyDouble_0_0Call();
+		replyDouble_1_0Call();
+		replyDouble_2_0Call();
+		replyDouble_127_0Call();
+		replyDouble_m128_0Call();
+		replyDouble_128_0Call();
+		replyDouble_m129_0Call();
+		replyDouble_32767_0Call();
+		replyDouble_m32768_0Call();
+		replyDouble_0_001Call();
+		replyDouble_m0_001Call();
+		replyDouble_65_536Call();
+		replyDouble_3_14159Call();
+
+		//
+		// dates
+		//
+		replyDate_0Call();
+		replyDate_1Call();
+		replyDate_2Call();
+
+		//
+		// strings
+		//
+		replyString_0Call();    // what is difference
+		replyString_nullCall(); // between these two tests?
+		replyString_1Call();
+		replyString_31Call();
+		replyString_32Call();
+		replyString_1023Call();
+		replyString_1024Call();
+		replyString_65536Call();
+
+		//
 		// binary length
 		//
 		replyBinary_0Call();
@@ -91,7 +175,427 @@ public:
 		call.invoke(networkManager, urlTest2, this, SLOT(replyNullCall()), SLOT(error(int, const QString&)));
 	}
 
-	void replyBinary_0Call() {
+	void replyTrueCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyTrue");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyTrue()), SLOT(error(int, const QString&)));
+	}
+
+	void replyFalseCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyFalse");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyFalse()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_1Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_1");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_1()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_47Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_47");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_47()), SLOT(error(int, const QString&)));
+	}
+
+		void replyInt_m16Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_m16");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_m16()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_0x30Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_0x30");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_0x30()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_0x7ffCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_0x7ff");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_0x7ff()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_m17Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_m17");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_m17()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_m0x800Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_m0x800");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_m0x800()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_0x800Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_0x800");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_0x800()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_0x3ffffCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_0x3ffff");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_0x3ffff()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_m0x801Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_m0x801");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_m0x801()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_m0x40000Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_m0x40000");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_m0x40000()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_0x40000Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_0x40000");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_0x40000()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_0x7fffffffCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_0x7fffffff");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_0x7fffffff()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_m0x40001Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_m0x40001");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_m0x40001()), SLOT(error(int, const QString&)));
+	}
+
+	void replyInt_m0x80000000Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyInt_m0x80000000");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyInt_m0x80000000()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_1Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_1");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_1()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_15Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_15");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_15()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_m8Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_m8");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_m8()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_0x10Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_0x10");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_0x10()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_0x7ffCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_0x7ff");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_0x7ff()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_m9Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_m9");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_m9()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_m0x800Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_m0x800");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_m0x800()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_0x800Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_0x800");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_0x800()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_0x3ffffCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_0x3ffff");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_0x3ffff()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_m0x801Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_m0x801");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_m0x801()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_m0x40000Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_m0x40000");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_m0x40000()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_0x40000Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_0x40000");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_0x40000()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_0x7fffffffCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_0x7fffffff");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_0x7fffffff()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_m0x40001Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_m0x40001");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_m0x40001()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_m0x80000000Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_m0x80000000");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_m0x80000000()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_0x80000000Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_0x80000000");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_0x80000000()), SLOT(error(int, const QString&)));
+	}
+
+	void replyLong_m0x80000001Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyLong_m0x80000001");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyLong_m0x80000001()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_0_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_0_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_0_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_1_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_1_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_1_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_2_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_2_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_2_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_127_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_127_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_127_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_m128_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_m128_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_m128_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_128_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_128_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_128_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_m129_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_m129_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_m129_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_32767_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_32767_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_32767_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_m32768_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_m32768_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_m32768_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_0_001Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_0_001");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_0_001()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_m0_001Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_m0_001");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_m0_001()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_65_536Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_65_536");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_65_536()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDouble_3_14159Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDouble_3_14159");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDouble_3_14159()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDate_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDate_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDate_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDate_1Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDate_1");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDate_1()), SLOT(error(int, const QString&)));
+	}
+
+	void replyDate_2Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyDate_2");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyDate_2()), SLOT(error(int, const QString&)));
+	}
+
+	void replyString_0Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyString_0");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyString_0()), SLOT(error(int, const QString&)));
+	}
+
+	void replyString_nullCall() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyString_null");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyString_null()), SLOT(error(int, const QString&)));
+	}
+
+	void replyString_1Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyString_1");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyString_1()), SLOT(error(int, const QString&)));
+	}
+
+	void replyString_31Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyString_31");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyString_31()), SLOT(error(int, const QString&)));
+	}
+
+	void replyString_32Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyString_32");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyString_32()), SLOT(error(int, const QString&)));
+	}
+
+	void replyString_1023Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyString_1023");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyString_1023()), SLOT(error(int, const QString&)));
+	}
+
+	void replyString_1024Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyString_1024");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyString_1024()), SLOT(error(int, const QString&)));
+	}
+
+	void replyString_65536Call() {
+		TEST_START
+
+		QHessian::QHessianMethodCall call("replyString_65536");
+		call.invoke(networkManager, urlTest2, this, SLOT(replyString_65536()), SLOT(error(int, const QString&)));
+	}
+
+    void replyBinary_0Call() {
 		TEST_START
 
 		QHessian::QHessianMethodCall call("replyBinary_0");
@@ -310,6 +814,851 @@ public:
 
 public slots:
 	void replyNullCall() {
+		TEST_END
+	}
+	void replyTrue() {
+        bool boolean;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Boolean(boolean);
+        parser.deleteLater();
+
+        COMPARE(boolean, true);
+
+		TEST_END
+	}
+
+	void replyFalse() {
+        bool boolean;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Boolean(boolean);
+        parser.deleteLater();
+
+        COMPARE(boolean, false);
+
+		TEST_END
+	}
+
+	void replyInt_0() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)0);
+
+		TEST_END
+	}
+
+	void replyInt_1() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)1);
+
+		TEST_END
+	}
+
+	void replyInt_47() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)47);
+
+		TEST_END
+	}
+
+	void replyInt_m16() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)-16);
+
+		TEST_END
+	}
+
+	void replyInt_0x30() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)0x30);
+
+		TEST_END
+	}
+
+	void replyInt_0x7ff() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)0x7ff);
+
+		TEST_END
+	}
+
+	void replyInt_m17() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)-17);
+
+		TEST_END
+	}
+
+	void replyInt_m0x800() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)-0x800);
+
+		TEST_END
+	}
+
+	void replyInt_0x800() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)0x800);
+
+		TEST_END
+	}
+
+	void replyInt_0x3ffff() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)0x3ffff);
+
+		TEST_END
+	}
+
+	void replyInt_m0x801() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)-0x801);
+
+		TEST_END
+	}
+
+	void replyInt_m0x40000() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)-0x40000);
+
+		TEST_END
+	}
+
+	void replyInt_0x40000() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)0x40000);
+
+		TEST_END
+	}
+
+	void replyInt_0x7fffffff() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)0x7fffffff);
+
+		TEST_END
+	}
+
+	void replyInt_m0x40001() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)-0x40001);
+
+		TEST_END
+	}
+
+	void replyInt_m0x80000000() {
+        qint32 integer;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Integer(integer);
+        parser.deleteLater();
+
+        COMPARE(integer, (qint32)0x80000000); //minus is dropped because of "unary minus operator applied to unsigned type, result still unsigned"
+
+		TEST_END
+	}
+
+	void replyLong_0() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, 0LL);
+
+		TEST_END
+	}
+
+	void replyLong_1() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, 1LL);
+
+		TEST_END
+	}
+
+	void replyLong_15() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, 15LL);
+
+		TEST_END
+	}
+
+	void replyLong_m8() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, -8LL);
+
+		TEST_END
+	}
+
+	void replyLong_0x10() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, 0x10LL);
+
+		TEST_END
+	}
+
+	void replyLong_0x7ff() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, 0x7ffLL);
+
+		TEST_END
+	}
+
+	void replyLong_m9() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, -9LL);
+
+		TEST_END
+	}
+
+	void replyLong_m0x800() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, -0x800LL);
+
+		TEST_END
+	}
+
+	void replyLong_0x800() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, 0x800LL);
+
+		TEST_END
+	}
+
+	void replyLong_0x3ffff() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, 0x3ffffLL);
+
+		TEST_END
+	}
+
+	void replyLong_m0x801() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, -0x801LL);
+
+		TEST_END
+	}
+
+	void replyLong_m0x40000() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, -0x40000LL);
+
+		TEST_END
+	}
+
+	void replyLong_0x40000() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, 0x40000LL);
+
+		TEST_END
+	}
+
+	void replyLong_0x7fffffff() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, 0x7fffffffLL);
+
+		TEST_END
+	}
+
+	void replyLong_m0x40001() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, -0x40001LL);
+
+		TEST_END
+	}
+
+	void replyLong_m0x80000000() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, -0x80000000LL);
+
+		TEST_END
+	}
+
+	void replyLong_0x80000000() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, 0x80000000LL);
+
+		TEST_END
+	}
+
+	void replyLong_m0x80000001() {
+        qint64 longInt;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Long(longInt);
+        parser.deleteLater();
+
+        COMPARE(longInt, -0x80000001LL);
+
+		TEST_END
+	}
+
+	void replyDouble_0_0() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)0);
+
+		TEST_END
+	}
+
+	void replyDouble_1_0() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)1);
+
+		TEST_END
+	}
+
+	void replyDouble_2_0() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)2);
+
+		TEST_END
+	}
+
+	void replyDouble_127_0() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)127);
+
+		TEST_END
+	}
+
+	void replyDouble_m128_0() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)-128);
+
+		TEST_END
+	}
+
+	void replyDouble_128_0() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)128);
+
+		TEST_END
+	}
+
+	void replyDouble_m129_0() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)-129);
+
+		TEST_END
+	}
+
+	void replyDouble_32767_0() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)32767);
+
+		TEST_END
+	}
+
+	void replyDouble_m32768_0() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)-32768);
+
+		TEST_END
+	}
+
+	void replyDouble_0_001() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)0.001);
+
+		TEST_END
+	}
+
+	void replyDouble_m0_001() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)-0.001);
+
+		TEST_END
+	}
+
+	void replyDouble_65_536() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)65.536);
+
+		TEST_END
+	}
+
+	void replyDouble_3_14159() {
+        qreal real;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> Double(real);
+        parser.deleteLater();
+
+        COMPARE(real, (qreal)3.14159);
+
+		TEST_END
+	}
+
+	void replyDate_0() {
+        QDateTime date;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> DateTime(date);
+        parser.deleteLater();
+
+        QDateTime x;
+		x.setMSecsSinceEpoch(0);
+        COMPARE(date, x);
+
+		TEST_END
+	}
+
+	void replyDate_1() {
+        QDateTime date;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> DateTime(date);
+        parser.deleteLater();
+
+        QDateTime x;
+		x.setMSecsSinceEpoch(894621091000LL);
+        COMPARE(date, x);
+
+		TEST_END
+	}
+
+	void replyDate_2() {
+        QDateTime date;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> DateTime(date);
+        parser.deleteLater();
+
+        QDateTime x;
+		x.setMSecsSinceEpoch(894621091000LL - (894621091000LL % 60000LL));
+        COMPARE(date, x);
+
+		TEST_END
+	}
+
+	void replyString_0() {
+        QString string;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> String(string);
+        parser.deleteLater();
+
+        COMPARE(string, QString());
+
+		TEST_END
+	}
+
+	void replyString_null() {
+        QString string;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> String(string);
+        parser.deleteLater();
+
+		COMPARE(string, QString());
+
+		TEST_END
+	}
+
+	void replyString_1() {
+        QString string;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> String(string);
+        parser.deleteLater();
+
+        COMPARE(string, QString("0"));
+
+		TEST_END
+	}
+
+	void replyString_31() {
+        QString string;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> String(string);
+        parser.deleteLater();
+
+        COMPARE(string, QString("0123456789012345678901234567890"));
+
+		TEST_END
+	}
+
+	void replyString_32() {
+        QString string;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> String(string);
+        parser.deleteLater();
+
+        COMPARE(string, QString("01234567890123456789012345678901"));
+
+		TEST_END
+	}
+
+	void replyString_1023() {
+        QString string;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> String(string);
+        parser.deleteLater();
+
+        COMPARE(string, generateString(1023));
+
+		TEST_END
+	}
+
+	void replyString_1024() {
+        QString string;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> String(string);
+        parser.deleteLater();
+
+        COMPARE(string, generateString(1024));
+
+		TEST_END
+	}
+
+	void replyString_65536() {
+        QString string;
+
+        using namespace QHessian::out;
+
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+        parser >> String(string);
+        parser.deleteLater();
+
+        COMPARE(string, generateString(65536));
+
 		TEST_END
 	}
 

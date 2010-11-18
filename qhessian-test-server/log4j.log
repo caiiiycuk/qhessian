@@ -23,3 +23,27 @@ java.lang.NullPointerException
 2010-10-24 16:24:05,304 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
 2010-10-24 16:24:05,362 [main] INFO  org.mortbay.log - jetty-6.1.24
 2010-10-24 16:24:05,530 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-14 18:38:44,640 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-14 18:38:44,843 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-14 18:38:45,531 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-14 19:27:54,515 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-11-14 20:08:06,359 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-14 20:08:06,546 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-14 20:08:07,203 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-14 20:27:27,406 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-11-14 21:07:20,218 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-14 21:07:20,406 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-14 21:07:21,000 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-14 21:32:18,453 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-11-15 20:55:29,875 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-15 20:55:30,109 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-15 20:55:30,828 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-15 21:03:52,656 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-11-16 20:02:56,312 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-16 20:02:56,531 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-16 20:02:57,218 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-16 21:50:02,515 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-11-17 21:23:58,421 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-17 21:23:58,609 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-17 21:23:59,281 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-17 22:32:51,406 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
