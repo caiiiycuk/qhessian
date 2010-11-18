@@ -8,7 +8,7 @@
 #ifndef QTESTHESSIAN_H_
 #define QTESTHESSIAN_H_
 
-#include "../rought_3_x/QHessian.h"
+#include "../../rought_3_x/QHessian.h"
 #include <QtNetwork/QNetworkAccessManager>
 #include <stdexcept>
 
@@ -55,11 +55,38 @@ static void compare(QString const& a, QString const& b, const char * actual, con
 	}
 }
 
-static void compare(int const& a, int const& b, const char * actual, const char * excepted, const char *file, int line) {
+static void compare(qint32 const& a, qint32 const& b, const char * actual, const char * excepted, const char *file, int line) {
 	if (a != b) {
 		throw std::runtime_error("Excepted " + std::string(excepted)
 			+ ", actual " + std::string(actual) + ":" + QString::number(a).toStdString()
 			+ " file " + std::string(file) + ":" + QString::number(b).toStdString()
+			+ " line " + QString::number(line).toStdString());
+	}
+}
+
+static void compare(qint64 const& a, qint64 const& b, const char * actual, const char * excepted, const char *file, int line) {
+	if (a != b) {
+		throw std::runtime_error("Excepted " + std::string(excepted)
+			+ ", actual " + std::string(actual) + ":" + QString::number(a).toStdString()
+			+ " file " + std::string(file) + ":" + QString::number(b).toStdString()
+			+ " line " + QString::number(line).toStdString());
+	}
+}
+
+static void compare(qreal const& a, qreal const& b, const char * actual, const char * excepted, const char *file, int line) {
+	if (a != b) {
+		throw std::runtime_error("Excepted " + std::string(excepted)
+			+ ", actual " + std::string(actual) + ":" + QString::number(a).toStdString()
+			+ " file " + std::string(file) + ":" + QString::number(b).toStdString()
+			+ " line " + QString::number(line).toStdString());
+	}
+}
+
+static void compare(QDateTime const& a, QDateTime const& b, const char * actual, const char * excepted, const char *file, int line) {
+	if (a != b) {
+		throw std::runtime_error("Excepted " + std::string(excepted)
+			+ ", actual " + std::string(actual) + ":" + a.toString().toStdString()
+			+ " file " + std::string(file) + ":" + b.toString().toStdString()
 			+ " line " + QString::number(line).toStdString());
 	}
 }
