@@ -1777,6 +1777,9 @@ public slots:
         COMPARE(binary.length(), 65536);
         COMPARE(binary, generateString(65536));
 
+        qint32 x = -2147483648;
+        qint64 y = -2147483648;
+        COMPARE(x, x);
 		TEST_END
 	}
 

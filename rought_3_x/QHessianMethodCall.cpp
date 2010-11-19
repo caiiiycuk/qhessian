@@ -31,6 +31,12 @@ void QHessianMethodCall::invoke(QNetworkAccessManager& networkManager,
 	QNetworkRequest request(url);
 	request.setHeader(QNetworkRequest::ContentTypeHeader, "x-application/hessian");
 
+//	QByteArray arr = toByteArray();
+//			for (int i=0; i<array.size(); ++i) {
+//				qDebug() << QString::number(arr.at(i)) << ":" << arr.at(i);
+//			}
+//	QHessianReturnParser* parser = new QHessianReturnParser(networkManager.post(request, arr));
+
 	QHessianReturnParser* parser = new QHessianReturnParser(networkManager.post(request, toByteArray()));
 	QObject::connect(parser, SIGNAL(ready()), reciver, replySlot);
 	QObject::connect(parser, SIGNAL(error(int, const QString&)), reciver, errorSlot);

@@ -62,6 +62,8 @@ void QHessianReturnParser::finished() {
 
 			if (peek(FAULT_TAG)) {
 				readFault();
+				reply->deleteLater();
+				return;
 			}
 		} catch (std::runtime_error& parseError) {
 			emit error(0, parseError.what());
@@ -204,11 +206,11 @@ inline void QHessianReturnParser::readFault() {
 	readString(keyMessage);
 	readString(message);
 
-	std::string error = keyCode.toStdString() + std::string(": ")
+	std::string errorString = keyCode.toStdString() + std::string(": ")
 			+ code.toStdString() + std::string(", ") + keyMessage.toStdString()
 			+ std::string(": ") + message.toStdString();
 
-	EXCEPTION(error)
+	emit error(0, QString::fromStdString(errorString));
 }
 
 void QHessianReturnParser::error(QNetworkReply::NetworkError code) {

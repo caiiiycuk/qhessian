@@ -21,6 +21,8 @@ public:
 		nullCall();
 		helloCall();
 		subtractCall();
+		echoCall();
+		faultCall();
 	}
 
 	void nullCall() {
@@ -41,11 +43,26 @@ public:
 		QHessian::QHessianMethodCall call("subtract"); // a-b
 
 		using namespace QHessian::in;
-
 		call << Integer(105)  // a
 			 << Integer(100); // b
-
 		call.invoke(networkManager, urlTest1, this, SLOT(replySubtractCall()), SLOT(error(int, const QString&)));
+	}
+
+	void echoCall() {
+		TEST_START
+		QHessian::QHessianMethodCall call("echo");
+
+		using namespace QHessian::in;
+		call << String("Hey, it`s ok!");
+		call.invoke(networkManager, urlTest1, this, SLOT(echo()), SLOT(error(int, const QString&)));
+	}
+
+	void faultCall() {
+		TEST_START
+		QHessian::QHessianMethodCall call("fault");
+
+		using namespace QHessian::in;
+		call.invoke(networkManager, urlTest1, this, SLOT(fault()), SLOT(error(int, const QString&)));
 	}
 
 public slots:
@@ -81,8 +98,26 @@ public slots:
 		TEST_END
 	}
 
+	void fault() {
+	}
+
+	void echo() {
+		QString result;
+
+		using namespace QHessian::out;
+
+		QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+		parser >> String(result);
+		parser.deleteLater();
+
+		COMPARE(result, QString("Hey, it`s ok!"));
+
+		TEST_END
+	}
+
 	void error(int, const QString& string) {
-		throw std::runtime_error("QHessian error: " + string.toStdString());
+		COMPARE(string, QString("code: ServiceException, message: sample exception"))
+		TEST_END
 	}
 };
 
