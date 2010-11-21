@@ -15,6 +15,10 @@ namespace QHessian {
 
 enum Type {
 //
+// Null type
+//
+	NULL_VALUE,
+//
 // Primitive types
 //
 	BINARY,
@@ -157,6 +161,8 @@ public:
 };
 
 namespace in {
+
+	typedef EmptyProperty<NULL_VALUE> 					Null;
 
 	typedef Property<BOOLEAN, bool> 					Boolean;
 	typedef Property<INTEGER, qint32> 					Integer;

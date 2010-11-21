@@ -78,6 +78,19 @@ void QHessianReturnParser::finished() {
 inline void QHessianReturnParser::readNext(IProperty& property) {
 	using namespace out;
 
+	//
+	// Null check
+	//
+
+	if (peek('N')) {
+		lastReadWasNull = true;
+		return;
+	}
+
+	//
+	// Other check
+	//
+
 	lastReadWasNull = false;
 
 	switch (property.getType()) {

@@ -22,6 +22,7 @@ public:
 		helloCall();
 		subtractCall();
 		echoCall();
+		echoNullCall();
 		faultCall();
 	}
 
@@ -55,6 +56,15 @@ public:
 		using namespace QHessian::in;
 		call << String("Hey, it`s ok!");
 		call.invoke(networkManager, urlTest1, this, SLOT(echo()), SLOT(error(int, const QString&)));
+	}
+
+	void echoNullCall() {
+		TEST_START
+		QHessian::QHessianMethodCall call("echo");
+
+		using namespace QHessian::in;
+		call << Null();
+		call.invoke(networkManager, urlTest1, this, SLOT(echoNull()), SLOT(error(int, const QString&)));
 	}
 
 	void faultCall() {
@@ -111,6 +121,20 @@ public slots:
 		parser.deleteLater();
 
 		COMPARE(result, QString("Hey, it`s ok!"));
+
+		TEST_END
+	}
+
+	void echoNull() {
+		QString result;
+
+		using namespace QHessian::out;
+
+		QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender();
+		parser >> String(result);
+		parser.deleteLater();
+
+		COMPARE(parser.wasNull(), true);
 
 		TEST_END
 	}
