@@ -150,6 +150,11 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 
 
 	switch (object.getType()) {
+		case NULL_VALUE:
+			writePropetyName(((Null&) object).getName());
+			stream.append("N");
+		break;
+
 		case BOOLEAN:
 			writePropetyName(((Boolean&) object).getName());
 			writeBool(((Boolean&) object).getValue());
