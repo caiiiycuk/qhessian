@@ -2179,10 +2179,11 @@ public slots:
 
 		qint32 	refTo;
 
-		parser  >> Ref(refTo);
-
-		COMPARE(parser.wasNull(), false);
-		COMPARE(refTo, 1);
+		if (parser.peek(Ref(refTo))) {
+			COMPARE(refTo, 1);
+		} else {
+			throw std::runtime_error("excepted ref");
+		}
 
         parser >> EndCollection();
         parser.deleteLater();
@@ -2226,16 +2227,21 @@ public slots:
         qint32  ref;
 
 		parser 	>> BeginObject("", "com.caucho.hessian.test.TestCons");
-		parser	>> Ref("_first", ref);
-		COMPARE(parser.wasNull(), true);
-		parser	>> String("_first", first);
-		parser	>> Ref("_rest", ref);
-		COMPARE(parser.wasNull(), false);
+
+		if (parser.peek(Ref("_first", ref))) {
+			throw std::runtime_error("unexcepted ref");
+		} else {
+			parser	>> String("_first", first);
+			COMPARE(first, QString("a"))
+
+			if (parser.peek(Ref("_rest", ref))) {
+				COMPARE(ref, 	 0)
+			} else {
+				throw std::runtime_error("excepted ref");
+			}
+		}
+
 		parser	>> EndObject();
-
-		COMPARE(first, QString("a"))
-		COMPARE(ref, 	 0)
-
 		parser.deleteLater();
 
 		TEST_END

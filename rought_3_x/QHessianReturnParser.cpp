@@ -52,7 +52,7 @@ void QHessianReturnParser::finished() {
 		replySize = array.length();
 
 //		for (int i=0; i<array.size(); ++i) {
-//			qDebug() << QString::number(array.at(i)) << ":" << array.at(i);
+//			qDebug() << "line: " << (i+1) << QString::number(array.at(i)) << ":" << array.at(i);
 //		}
 
 		try {
@@ -94,6 +94,10 @@ inline void QHessianReturnParser::readNext(IProperty& property) {
 	lastReadWasNull = false;
 
 	switch (property.getType()) {
+	 	case NULL_VALUE:
+	 		EXCEPTION("Null value doesn`t supports by QHessianReturnParser");
+		break;
+
 		case BINARY:
 			expectString(((Binary&) property).getName());
 			readBytes(((Binary&) property).getValue());
@@ -159,6 +163,7 @@ inline void QHessianReturnParser::readNext(IProperty& property) {
 		} break;
 
 		case BEGIN_OBJECT: {
+			expectString(((BeginObject&) property).getName());
 		    expect(OBJECT_TAG, "QHessianReturnParser::readObject: Excepted Object ('M') tag");
 		    if (peek('t')) {
 		        expectStdString(((BeginObject&) property).getValue());
@@ -172,14 +177,9 @@ inline void QHessianReturnParser::readNext(IProperty& property) {
 		} break;
 
 		case REF: {
-			SAVE_STATE()
-			if (peekString(((Ref&) property).getName()) && peek('R')) {
-				readInt(((Ref&) property).getValue());
-			} else { //no reference
-				RESTORE_STATE()
-				lastReadWasNull = true;
-			}
-
+			expectString(((Ref&) property).getName());
+			expect('R');
+			readInt(((Ref&) property).getValue());
 		} break;
 	}
 }
@@ -449,19 +449,6 @@ inline void QHessianReturnParser::expectString(const QString& string) {
 	}
 }
 
-inline bool QHessianReturnParser::peekString(const QString& string) {
-	SAVE_STATE()
-	try {
-		expectString(string);
-	} catch (...) {
-		RESTORE_STATE()
-		return false;
-	}
-
-	return true;
-}
-
-
 inline void QHessianReturnParser::expectStdString(const std::string& string) {
 	if (string.length() > 0) {
         std::string realString;
@@ -477,9 +464,30 @@ inline void QHessianReturnParser::expectStdString(const std::string& string) {
 
 QHessianReturnParser &QHessianReturnParser::operator>>(const IProperty& property) {
 	IProperty* copy = property.clone();
-	readNext(*copy);
+	try {
+		readNext(*copy);
+	} catch (std::runtime_error& exp) {
+		emit error(0, QString(exp.what()));
+		delete copy;
+		return *this;
+	}
 	delete copy;
 	return *this;
+}
+
+bool QHessianReturnParser::peek(const IProperty& property) {
+	SAVE_STATE()
+
+	IProperty* copy = property.clone();
+	try {
+		readNext(*copy);
+	} catch (...) {
+		RESTORE_STATE()
+		delete copy;
+		return false;
+	}
+	delete copy;
+	return true;
 }
 
 bool QHessianReturnParser::wasNull() const {
