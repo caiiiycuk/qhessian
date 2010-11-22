@@ -84,19 +84,27 @@ protected:
     //
     bool peek(char c);
 
-    //
-    // check string and if equals - read it
-    //
-    bool peekString(const QString&);
-
     Q_DISABLE_COPY(QHessianReturnParser);
 
 public:
 	QHessianReturnParser(QNetworkReply* reply);
 	virtual ~QHessianReturnParser();
 
+	//
+	// try to parse property
+	//
 	QHessianReturnParser &operator>>(const IProperty&);
 
+	//
+	// return true if server response can be parsed as this
+	// property
+	//
+	bool peek(const IProperty&);
+
+	//
+	// return true if null value was arrived from server
+	// in last request
+	//
 	bool wasNull() const;
 
 public slots:
