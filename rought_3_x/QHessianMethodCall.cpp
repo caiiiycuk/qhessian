@@ -122,7 +122,11 @@ inline void QHessianMethodCall::writeInt(const qint32& value) {
 }
 
 inline void QHessianMethodCall::writeDouble(const qreal& value) {
-    stream.append(reinterpret_cast<const char *>(&value), sizeof(value));
+	double dValue = value;
+	const char* array =  reinterpret_cast<const char *>(&dValue);
+    for (int i=sizeof(double) -1; i>=0; --i) {
+    	stream.append(array[i]);
+    }
 }
 
 inline void QHessianMethodCall::writeObject(const std::string& object) {

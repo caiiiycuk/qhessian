@@ -30,6 +30,76 @@ public:
 		methodNull();
 
 		//
+		// Null
+		//
+		argNullCall();
+
+		//
+		// boolean
+		//
+		argTrueCall();
+		argFalseCall();
+
+		//
+		// integer
+		//
+		argInt_0Call();
+		argInt_1Call();
+		argInt_47Call();
+		argInt_m16Call();
+		argInt_0x30Call();
+		argInt_0x7ffCall();
+		argInt_m17Call();
+		argInt_m0x800Call();
+		argInt_0x800Call();
+		argInt_0x3ffffCall();
+		argInt_m0x801Call();
+		argInt_m0x40000Call();
+		argInt_0x40000Call();
+		argInt_0x7fffffffCall();
+		argInt_m0x40001Call();
+		argInt_m0x80000000Call();
+
+		//
+		// longs
+		//
+		argLong_0Call();
+		argLong_1Call();
+		argLong_15Call();
+		argLong_m8Call();
+		argLong_0x10Call();
+		argLong_0x7ffCall();
+		argLong_m9Call();
+		argLong_m0x800Call();
+		argLong_0x800Call();
+		argLong_0x3ffffCall();
+		argLong_m0x801Call();
+		argLong_m0x40000Call();
+		argLong_0x40000Call();
+		argLong_0x7fffffffCall();
+		argLong_m0x40001Call();
+		argLong_m0x80000000Call();
+		argLong_0x80000000Call();
+		argLong_m0x80000001Call();
+
+		//
+		// doubles
+		//
+		argDouble_0_0Call();
+		argDouble_1_0Call();
+		argDouble_2_0Call();
+		argDouble_127_0Call();
+		argDouble_m128_0Call();
+		argDouble_128_0Call();
+		argDouble_m129_0Call();
+		argDouble_32767_0Call();
+		argDouble_m32768_0Call();
+		argDouble_0_001Call();
+		argDouble_m0_001Call();
+		argDouble_65_536Call();
+		argDouble_3_14159Call();
+
+		//
 		// Binary
 		//
 		argBinary_0Call();
@@ -89,6 +159,555 @@ public:
 
 		QHessian::QHessianMethodCall call("methodNull");
 		call.invoke(networkManager, urlTest2, this, SLOT(replyNullCall()), SLOT(error(int, const QString&)));
+	}
+
+	void argNullCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argNull");
+		call << Null();
+		call.invoke(networkManager, urlTest2, this, SLOT(argNull()), SLOT(error(int, const QString&)));
+	}
+
+	void argTrueCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argTrue");
+		call << Boolean(true);
+		call.invoke(networkManager, urlTest2, this, SLOT(argTrue()), SLOT(error(int, const QString&)));
+	}
+
+	void argFalseCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argFalse");
+		call << Boolean(false);
+		call.invoke(networkManager, urlTest2, this, SLOT(argFalse()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_0");
+		call << Integer(0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_1Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_1");
+		call << Integer(1);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_1()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_47Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_47");
+		call << Integer(47);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_47()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_m16Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_m16");
+		call << Integer(-16);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_m16()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_0x30Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_0x30");
+		call << Integer(0x30);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_0x30()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_0x7ffCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_0x7ff");
+		call << Integer(0x7ff);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_0x7ff()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_m17Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_m17");
+		call << Integer(-17);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_m17()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_m0x800Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_m0x800");
+		call << Integer(-0x800);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_m0x800()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_0x800Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_0x800");
+		call << Integer(0x800);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_0x800()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_0x3ffffCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_0x3ffff");
+		call << Integer(0x3ffff);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_0x3ffff()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_m0x801Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_m0x801");
+		call << Integer(-0x801);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_m0x801()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_m0x40000Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_m0x40000");
+		call << Integer(-0x40000);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_m0x40000()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_0x40000Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_0x40000");
+		call << Integer(0x40000);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_0x40000()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_0x7fffffffCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_0x7fffffff");
+		call << Integer(0x7fffffff);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_0x7fffffff()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_m0x40001Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_m0x40001");
+		call << Integer(-0x40001);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_m0x40001()), SLOT(error(int, const QString&)));
+	}
+
+	void argInt_m0x80000000Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argInt_m0x80000000");
+		call << Integer(-0x80000000);
+		call.invoke(networkManager, urlTest2, this, SLOT(argInt_m0x80000000()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_0");
+		call << Long(0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_1Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_1");
+		call << Long(1);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_1()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_15Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_15");
+		call << Long(15);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_15()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_m8Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_m8");
+		call << Long(-8);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_m8()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_0x10Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_0x10");
+		call << Long(0x10);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_0x10()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_0x7ffCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_0x7ff");
+		call << Long(0x7ff);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_0x7ff()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_m9Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_m9");
+		call << Long(-9);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_m9()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_m0x800Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_m0x800");
+		call << Long(-0x800);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_m0x800()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_0x800Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_0x800");
+		call << Long(0x800);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_0x800()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_0x3ffffCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_0x3ffff");
+		call << Long(0x3ffff);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_0x3ffff()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_m0x801Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_m0x801");
+		call << Long(-0x801);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_m0x801()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_m0x40000Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_m0x40000");
+		call << Long(-0x40000);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_m0x40000()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_0x40000Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_0x40000");
+		call << Long(0x40000);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_0x40000()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_0x7fffffffCall() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_0x7fffffff");
+		call << Long(0x7fffffff);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_0x7fffffff()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_m0x40001Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_m0x40001");
+		call << Long(-0x40001);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_m0x40001()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_m0x80000000Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_m0x80000000");
+		call << Long(-0x80000000ll);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_m0x80000000()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_0x80000000Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_0x80000000");
+		call << Long(0x80000000ll);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_0x80000000()), SLOT(error(int, const QString&)));
+	}
+
+	void argLong_m0x80000001Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argLong_m0x80000001");
+		call << Long(-0x80000001ll);
+		call.invoke(networkManager, urlTest2, this, SLOT(argLong_m0x80000001()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_0_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_0_0");
+		call << Double(0.0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_0_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_1_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+		QHessian::QHessianMethodCall call("argDouble_1_0");
+		call << Double(1.0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_1_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_2_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_2_0");
+		call << Double(2.0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_2_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_127_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_127_0");
+		call << Double(127.0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_127_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_m128_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_m128_0");
+		call << Double(-128.0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_m128_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_128_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_128_0");
+		call << Double(128.0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_128_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_m129_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_m129_0");
+		call << Double(-129.0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_m129_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_32767_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_32767_0");
+		call << Double(32767.0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_32767_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_m32768_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_m32768_0");
+		call << Double(-32768.0);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_m32768_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_0_001Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_0_001");
+		call << Double(0.001);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_0_001()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_m0_001Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_m0_001");
+		call << Double(-0.001);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_m0_001()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_65_536Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_65_536");
+		call << Double(65.536);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_65_536()), SLOT(error(int, const QString&)));
+	}
+
+	void argDouble_3_14159Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argDouble_3_14159");
+		call << Double(3.14159);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_3_14159()), SLOT(error(int, const QString&)));
 	}
 
 	void argBinary_0Call() {
@@ -512,6 +1131,207 @@ public slots:
 	void replyNullCall() {
 		TEST_END
 	}
+
+	void argNull() {
+		EXCEPT_TRUE
+	}
+
+	void argTrue() {
+		EXCEPT_TRUE
+	}
+
+	void argFalse() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_0() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_1() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_47() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_m16() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_0x30() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_0x7ff() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_m17() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_m0x800() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_0x800() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_0x3ffff() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_m0x801() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_m0x40000() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_0x40000() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_0x7fffffff() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_m0x40001() {
+		EXCEPT_TRUE
+	}
+
+	void argInt_m0x80000000() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_0() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_1() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_15() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_m8() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_0x10() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_0x7ff() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_m9() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_m0x800() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_0x800() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_0x3ffff() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_m0x801() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_m0x40000() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_0x40000() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_0x7fffffff() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_m0x40001() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_m0x80000000() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_0x80000000() {
+		EXCEPT_TRUE
+	}
+
+	void argLong_m0x80000001() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_0_0() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_1_0() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_2_0() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_127_0() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_m128_0() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_128_0() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_m129_0() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_32767_0() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_m32768_0() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_0_001() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_m0_001() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_65_536() {
+		EXCEPT_TRUE
+	}
+
+	void argDouble_3_14159() {
+		EXCEPT_TRUE
+	}
+
 
 	void argBinary_0() {
 		EXCEPT_TRUE
