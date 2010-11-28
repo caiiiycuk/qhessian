@@ -272,7 +272,7 @@ inline void QHessianReturnParser::readLong(qint64& value) {
 
 //ddouble
 inline void QHessianReturnParser::readDouble(qreal& value) {
-    double dValue;
+    double dValue = 0.0;
 
     char* array = reinterpret_cast<char*>(&dValue);
 
