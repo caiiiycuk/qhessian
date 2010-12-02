@@ -1,0 +1,59 @@
+2010-10-24 16:20:21,886 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-10-24 16:20:21,956 [main] INFO  org.mortbay.log - jetty-6.1.24
+2010-10-24 16:20:22,017 [main] ERROR org.mortbay.log - Failed startup of context org.mortbay.jetty.webapp.WebAppContext@eac5a{/,null}
+java.lang.NullPointerException
+	at org.mortbay.resource.Resource.newResource(Resource.java:141)
+	at org.mortbay.resource.Resource.newResource(Resource.java:121)
+	at org.mortbay.jetty.webapp.WebAppContext.resolveWebApp(WebAppContext.java:892)
+	at org.mortbay.jetty.webapp.WebAppContext.getWebInf(WebAppContext.java:800)
+	at org.mortbay.jetty.webapp.WebInfConfiguration.configureClassLoader(WebInfConfiguration.java:62)
+	at org.mortbay.jetty.webapp.WebAppContext.doStart(WebAppContext.java:457)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.handler.HandlerCollection.doStart(HandlerCollection.java:152)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.handler.HandlerWrapper.doStart(HandlerWrapper.java:130)
+	at org.mortbay.jetty.Server.doStart(Server.java:224)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at name.caiiiycuk.test.QHessianTestServer.main(QHessianTestServer.java:51)
+2010-10-24 16:20:22,048 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-10-24 16:22:16,048 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-10-24 16:23:23,937 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-10-24 16:23:23,995 [main] INFO  org.mortbay.log - jetty-6.1.24
+2010-10-24 16:23:24,185 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-10-24 16:24:05,304 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-10-24 16:24:05,362 [main] INFO  org.mortbay.log - jetty-6.1.24
+2010-10-24 16:24:05,530 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-14 18:38:44,640 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-14 18:38:44,843 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-14 18:38:45,531 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-14 19:27:54,515 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-11-14 20:08:06,359 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-14 20:08:06,546 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-14 20:08:07,203 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-14 20:27:27,406 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-11-14 21:07:20,218 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-14 21:07:20,406 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-14 21:07:21,000 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-14 21:32:18,453 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-11-15 20:55:29,875 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-15 20:55:30,109 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-15 20:55:30,828 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-15 21:03:52,656 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-11-16 20:02:56,312 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-16 20:02:56,531 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-16 20:02:57,218 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-16 21:50:02,515 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-11-17 21:23:58,421 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-11-17 21:23:58,609 [main] INFO  org.mortbay.log - jetty-1.0
+2010-11-17 21:23:59,281 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-11-17 22:32:51,406 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-12-02 09:04:38,942 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-12-02 09:04:39,054 [main] INFO  org.mortbay.log - jetty-6.1.24
+2010-12-02 09:04:39,192 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-12-02 09:30:55,085 [18093512@qtp-13205705-13] WARN  org.mortbay.log - /test2: com.caucho.hessian.io.HessianProtocolException: argBinary_65536: expected end of call ('z') at end of file.  Check method arguments and ensure method overloading is enabled if necessary
+2010-12-02 09:33:41,168 [7629520@qtp-13205705-12] WARN  org.mortbay.log - /test2: com.caucho.hessian.io.HessianProtocolException: argBinary_65536: expected end of call ('z') at end of file.  Check method arguments and ensure method overloading is enabled if necessary
+2010-12-02 09:33:59,041 [7629520@qtp-13205705-12] WARN  org.mortbay.log - /test2: com.caucho.hessian.io.HessianProtocolException: argBinary_65536: expected end of call ('z') at end of file.  Check method arguments and ensure method overloading is enabled if necessary
+2010-12-02 09:36:45,293 [18093512@qtp-13205705-13] WARN  org.mortbay.log - /test2: com.caucho.hessian.io.HessianProtocolException: argBinary_65536: expected end of call ('z') at end of file.  Check method arguments and ensure method overloading is enabled if necessary
+2010-12-02 09:44:42,951 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-12-02 09:44:42,995 [main] INFO  org.mortbay.log - jetty-6.1.24
+2010-12-02 09:44:43,101 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
