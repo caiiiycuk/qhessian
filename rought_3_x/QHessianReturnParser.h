@@ -64,8 +64,8 @@ protected:
     void readString(std::string& value);
 
     // reads bytes chunk for binary
-    void readByteChunk(std::string& bytes);
-    void readBytes(QString& bytes);
+    void readByteChunk(QByteArray& bytes);
+    void readBytes(QByteArray& bytes);
 
     // collections
     void readCollection(out::BeginCollection& collection);
@@ -74,7 +74,7 @@ protected:
     void readMap(out::BeginMap& map);
 
 
-	//
+	//QString
 	// Peek - dont move a read pointer
 	//
     int  peek();

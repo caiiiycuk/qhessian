@@ -47,3 +47,13 @@ java.lang.NullPointerException
 2010-11-17 21:23:58,609 [main] INFO  org.mortbay.log - jetty-1.0
 2010-11-17 21:23:59,281 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
 2010-11-17 22:32:51,406 [Thread-2] INFO  org.mortbay.log - Stopped SelectChannelConnector@0.0.0.0:8080
+2010-12-02 09:04:38,942 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-12-02 09:04:39,054 [main] INFO  org.mortbay.log - jetty-6.1.24
+2010-12-02 09:04:39,192 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080
+2010-12-02 09:30:55,085 [18093512@qtp-13205705-13] WARN  org.mortbay.log - /test2: com.caucho.hessian.io.HessianProtocolException: argBinary_65536: expected end of call ('z') at end of file.  Check method arguments and ensure method overloading is enabled if necessary
+2010-12-02 09:33:41,168 [7629520@qtp-13205705-12] WARN  org.mortbay.log - /test2: com.caucho.hessian.io.HessianProtocolException: argBinary_65536: expected end of call ('z') at end of file.  Check method arguments and ensure method overloading is enabled if necessary
+2010-12-02 09:33:59,041 [7629520@qtp-13205705-12] WARN  org.mortbay.log - /test2: com.caucho.hessian.io.HessianProtocolException: argBinary_65536: expected end of call ('z') at end of file.  Check method arguments and ensure method overloading is enabled if necessary
+2010-12-02 09:36:45,293 [18093512@qtp-13205705-13] WARN  org.mortbay.log - /test2: com.caucho.hessian.io.HessianProtocolException: argBinary_65536: expected end of call ('z') at end of file.  Check method arguments and ensure method overloading is enabled if necessary
+2010-12-02 09:44:42,951 [main] INFO  org.mortbay.log - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2010-12-02 09:44:42,995 [main] INFO  org.mortbay.log - jetty-6.1.24
+2010-12-02 09:44:43,101 [main] INFO  org.mortbay.log - Started SelectChannelConnector@0.0.0.0:8080

@@ -135,18 +135,27 @@ inline void QHessianMethodCall::writeObject(const std::string& object) {
 	writeStdString(object);
 }
 
-void QHessianMethodCall::writeBinary(const std::string& bytes) {
+void QHessianMethodCall::writeBinaryPart(const QByteArray& bytes, qint32 from, qint32 length) {
+	qint16 len16 = length;
+	stream.append(static_cast<char>((len16 >> 8) & 0xFF));
+	stream.append(static_cast<char>(len16 & 0xFF));
+	for (qint32 i=0; i<length; ++i) {
+		stream.append(bytes.at(from + i));
+	}
+}
+
+void QHessianMethodCall::writeBinary(const QByteArray& bytes) {
 	size_t l_bytesLen = bytes.size();
 	size_t l_pos = 0;
 	while(l_bytesLen > 0x8000) {
 		size_t l_sublen = 0x8000;
 		stream.append('b');
-		writeStdString(bytes.substr(l_pos, l_sublen));
+		writeBinaryPart(bytes, l_pos, l_sublen);
 		l_bytesLen -= l_sublen;
 		l_pos += l_sublen;
 	}
 	stream.append('B');
-	writeStdString(bytes.substr(l_pos, l_bytesLen));
+	writeBinaryPart(bytes, l_pos, l_bytesLen);
 }
 
 QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
@@ -189,7 +198,7 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 
 		case BINARY:
 			writePropetyName(((Binary&) object).getName());
-			writeBinary(((Binary&) object).getValue().toStdString());
+			writeBinary(((Binary&) object).getValue());
 		break;
 
 		case BEGIN_COLLECTION: {

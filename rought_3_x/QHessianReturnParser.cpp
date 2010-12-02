@@ -305,7 +305,7 @@ inline void QHessianReturnParser::readString(std::string& value) {
     }
 }
 
-inline void QHessianReturnParser::readByteChunk(std::string& bytes) {
+inline void QHessianReturnParser::readByteChunk(QByteArray& bytes) {
 	int b16 = read() & 0xFF;
 	int b8 = read() & 0xFF;
 	int len = (b16 << 8) + b8;
@@ -315,7 +315,7 @@ inline void QHessianReturnParser::readByteChunk(std::string& bytes) {
 	}
 }
 
-inline void QHessianReturnParser::readBytes(QString& bytes) {
+inline void QHessianReturnParser::readBytes(QByteArray& bytes) {
 	int tag = read();
 
 	if (tag == 'N') {
@@ -326,7 +326,7 @@ inline void QHessianReturnParser::readBytes(QString& bytes) {
 	std::string stream;
 
 	while (tag == 'b') {
-		readByteChunk(stream);
+		readByteChunk(bytes);
 		tag = read();
 	}
 
@@ -334,9 +334,7 @@ inline void QHessianReturnParser::readBytes(QString& bytes) {
 		EXCEPTION("excepted B tag");
 	}
 
-	readByteChunk(stream);
-
-	bytes = QString::fromStdString(stream);
+	readByteChunk(bytes);
 }
 
 inline void QHessianReturnParser::readCollection(out::BeginCollection& collection) {

@@ -23,6 +23,12 @@
         parser.deleteLater(); \
 		TEST_END
 
+namespace {
+	QByteArray fromString(const QString& string) {
+		return string.toAscii();
+	}
+}
+
 class QCauchoTest2: public QObject {
 Q_OBJECT
 public:
@@ -717,7 +723,7 @@ public:
 
 
 		QHessian::QHessianMethodCall call("argBinary_0");
-		call << Binary(QString(""));
+		call << Binary(fromString(QString("")));
 		call.invoke(networkManager, urlTest2, this, SLOT(argBinary_0()), SLOT(error(int, const QString&)));
 	}
 
@@ -728,7 +734,7 @@ public:
 
 
 		QHessian::QHessianMethodCall call("argBinary_1");
-		call << Binary(QString("0"));
+		call << Binary(fromString(QString("0")));
 		call.invoke(networkManager, urlTest2, this, SLOT(argBinary_1()), SLOT(error(int, const QString&)));
 	}
 
@@ -739,7 +745,7 @@ public:
 
 
 		QHessian::QHessianMethodCall call("argBinary_15");
-		call << Binary(QString("012345678901234"));
+		call << Binary(fromString(QString("012345678901234")));
 		call.invoke(networkManager, urlTest2, this, SLOT(argBinary_15()), SLOT(error(int, const QString&)));
 	}
 
@@ -750,7 +756,7 @@ public:
 
 
 		QHessian::QHessianMethodCall call("argBinary_16");
-		call << Binary(QString("0123456789012345"));
+		call << Binary(fromString(QString("0123456789012345")));
 		call.invoke(networkManager, urlTest2, this, SLOT(argBinary_16()), SLOT(error(int, const QString&)));
 	}
 
@@ -760,7 +766,7 @@ public:
 		using namespace QHessian::in;
 
 		QHessian::QHessianMethodCall call("argBinary_1023");
-		call << Binary(generateString(1023));
+		call << Binary(fromString(generateString(1023)));
 		call.invoke(networkManager, urlTest2, this, SLOT(argBinary_1023()), SLOT(error(int, const QString&)));
 	}
 
@@ -770,7 +776,7 @@ public:
 		using namespace QHessian::in;
 
 		QHessian::QHessianMethodCall call("argBinary_1024");
-		call << Binary(generateString(1024));
+		call << Binary(fromString(generateString(1024)));
 		call.invoke(networkManager, urlTest2, this, SLOT(argBinary_1024()), SLOT(error(int, const QString&)));
 	}
 
@@ -780,7 +786,7 @@ public:
 		using namespace QHessian::in;
 
 		QHessian::QHessianMethodCall call("argBinary_65536");
-		call << Binary(generateString(65536));
+		call << Binary(fromString(generateString(65536)));
 		call.invoke(networkManager, urlTest2, this, SLOT(argBinary_65536()), SLOT(error(int, const QString&)));
 	}
 

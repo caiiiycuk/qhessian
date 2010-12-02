@@ -1663,7 +1663,7 @@ public slots:
 	}
 
 	void replyBinary_0() {
-        QString binary;
+		QByteArray binary;
 
         using namespace QHessian::out;
 
@@ -1677,7 +1677,7 @@ public slots:
 	}
 
 	void replyBinary_null() {
-        QString binary;
+		QByteArray binary;
 
         using namespace QHessian::out;
 
@@ -1691,7 +1691,7 @@ public slots:
 	}
 
 	void replyBinary_1() {
-        QString binary;
+		QByteArray binary;
 
         using namespace QHessian::out;
 
@@ -1700,13 +1700,13 @@ public slots:
         parser.deleteLater();
 
         COMPARE(binary.length(), 1);
-        COMPARE(binary.at(0).toAscii(), '0');
+        COMPARE(binary.at(0), '0');
 
 		TEST_END
 	}
 
 	void replyBinary_15() {
-        QString binary;
+		QByteArray binary;
 
         using namespace QHessian::out;
 
@@ -1714,14 +1714,17 @@ public slots:
         parser >> Binary(binary);
         parser.deleteLater();
 
+        QString binaryString;
+		binaryString = QString::fromAscii(binary.data(), binary.size());
+
         COMPARE(binary.length(), 15);
-        COMPARE(binary, QString("012345678901234"));
+        COMPARE(binaryString, QString("012345678901234"));
 
 		TEST_END
 	}
 
 	void replyBinary_16() {
-        QString binary;
+		QByteArray binary;
 
         using namespace QHessian::out;
 
@@ -1729,14 +1732,17 @@ public slots:
         parser >> Binary(binary);
         parser.deleteLater();
 
+        QString binaryString;
+		binaryString = QString::fromAscii(binary.data(), binary.size());
+
         COMPARE(binary.length(), 16);
-        COMPARE(binary, QString("0123456789012345"));
+        COMPARE(binaryString, QString("0123456789012345"));
 
 		TEST_END
 	}
 
 	void replyBinary_1023() {
-        QString binary;
+		QByteArray binary;
 
         using namespace QHessian::out;
 
@@ -1744,14 +1750,17 @@ public slots:
         parser >> Binary(binary);
         parser.deleteLater();
 
+        QString binaryString;
+		binaryString = QString::fromAscii(binary.data(), binary.size());
+
         COMPARE(binary.length(), 1023);
-        COMPARE(binary, generateString(1023));
+        COMPARE(binaryString, generateString(1023));
 
 		TEST_END
 	}
 
 	void replyBinary_1024() {
-        QString binary;
+		QByteArray binary;
 
         using namespace QHessian::out;
 
@@ -1759,14 +1768,17 @@ public slots:
         parser >> Binary(binary);
         parser.deleteLater();
 
+        QString binaryString;
+		binaryString = QString::fromAscii(binary.data(), binary.size());
+
         COMPARE(binary.length(), 1024);
-        COMPARE(binary, generateString(1024));
+        COMPARE(binaryString, generateString(1024));
 
 		TEST_END
 	}
 
 	void replyBinary_65536() {
-        QString binary;
+		QByteArray binary;
 
         using namespace QHessian::out;
 
@@ -1774,12 +1786,12 @@ public slots:
         parser >> Binary(binary);
         parser.deleteLater();
 
-        COMPARE(binary.length(), 65536);
-        COMPARE(binary, generateString(65536));
+        QString binaryString;
+		binaryString = QString::fromAscii(binary.data(), binary.size());
 
-        qint32 x = -2147483648;
-        qint64 y = -2147483648;
-        COMPARE(x, x);
+        COMPARE(binary.length(), 65536);
+        COMPARE(binaryString, generateString(65536));
+
 		TEST_END
 	}
 

@@ -1230,7 +1230,7 @@ public class TestHessian2Servlet
    */
   public Object argDouble_0_001(Object v)
   {
-    if (v.equals(replyDouble_0_001()))
+    if (doubleEquals(v, replyDouble_0_001()))
       return true;
 
     return getInputDebug();
@@ -1245,7 +1245,7 @@ public class TestHessian2Servlet
    */
   public Object argDouble_m0_001(Object v)
   {
-    if (v.equals(replyDouble_m0_001()))
+    if (doubleEquals(v, replyDouble_m0_001()))
       return true;
 
     return getInputDebug();
@@ -1260,7 +1260,7 @@ public class TestHessian2Servlet
    */
   public Object argDouble_65_536(Object v)
   {
-    if (v.equals(replyDouble_65_536()))
+    if (doubleEquals(v, replyDouble_65_536()))
       return true;
 
     return getInputDebug();
@@ -1275,12 +1275,16 @@ public class TestHessian2Servlet
    */
   public Object argDouble_3_14159(Object v)
   {
-    if (v.equals(replyDouble_3_14159()))
+    if (doubleEquals(v, replyDouble_3_14159()))
       return true;
 
     return getInputDebug();
   }
 
+  protected boolean doubleEquals(Object actual, Object real) {
+	  return Math.abs((Double)actual - (Double)real) < 0.00001;
+  }
+  
   //
   // date
   //

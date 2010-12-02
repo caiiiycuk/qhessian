@@ -170,7 +170,7 @@ namespace in {
 	typedef Property<DOUBLE, qreal> 					Double;
 	typedef Property<STRING, QString> 					String;
 	typedef Property<DATE, QDateTime> 					DateTime;
-	typedef Property<BINARY, QString>					Binary;
+	typedef Property<BINARY, QByteArray>				Binary;
 
 	typedef TypedProperty<BEGIN_COLLECTION, qint32>		BeginCollection;
 	typedef EmptyProperty<END_COLLECTION>				EndCollection;
@@ -193,7 +193,7 @@ namespace out {
 	typedef Property<DOUBLE, qreal&> 					Double;
 	typedef Property<STRING, QString&> 					String;
 	typedef Property<DATE, QDateTime&> 					DateTime;
-	typedef Property<BINARY, QString&>					Binary;
+	typedef Property<BINARY, QByteArray&>					Binary;
 
 	typedef TypedProperty<BEGIN_COLLECTION, qint32&>	BeginCollection;
 	typedef EmptyProperty<END_COLLECTION>				EndCollection;
