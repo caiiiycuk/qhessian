@@ -32,6 +32,7 @@ protected:
 	void writeLong(const qint64& );
 	void writeInt(const qint32& );
 	void writeDouble(const qreal& );
+	void writeDateTime(const QDateTime& );
 	void writeBinary(const std::string& );
 
 	void writeObject(const std::string&);

@@ -57,18 +57,18 @@ void QHessianMethodCall::writePropetyName(const QString& value) {
 }
 
 inline void QHessianMethodCall::writeString(const std::string& value) {
-    const char* pSrcBegin = value.data();
-    const char* pSrcEnd = pSrcBegin + value.size();
-    do {
-        std::string::size_type count;
-        const char* pEnd = countUTF8Char(pSrcBegin, pSrcEnd, count);
-        stream.append((pEnd < pSrcEnd) ? 's' : 'S');
+	const char* pSrcBegin = value.data();
+	const char* pSrcEnd = pSrcBegin + value.size();
+	do {
+		std::string::size_type count;
+		const char* pEnd = countUTF8Char(pSrcBegin, pSrcEnd, count);
+		stream.append((pEnd < pSrcEnd) ? 's' : 'S');
 
     	stream.append(static_cast<char>((count >> 8) & 0xFF));
     	stream.append(static_cast<char>(count & 0xFF));
-        stream.append(pSrcBegin, count);
-        pSrcBegin = pEnd;
-    } while (pSrcBegin < pSrcEnd);
+		stream.append(pSrcBegin, count);
+		pSrcBegin = pEnd;
+	} while (pSrcBegin < pSrcEnd);
 }
 
 inline void QHessianMethodCall::writeCall() {
@@ -129,6 +129,11 @@ inline void QHessianMethodCall::writeDouble(const qreal& value) {
     }
 }
 
+inline void QHessianMethodCall::writeDateTime(const QDateTime& value) {
+	stream.append('d');
+	writeLong(value.toMSecsSinceEpoch());
+}
+
 inline void QHessianMethodCall::writeObject(const std::string& object) {
 	stream.append('M');
 	stream.append('t');
@@ -180,6 +185,11 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 			writePropetyName(((Double&) object).getName());
 			stream.append('D');
 			writeDouble(((Double&) object).getValue());
+		break;
+
+		case DATE:
+			writePropetyName(((DateTime&) object).getName());
+			writeDateTime(((DateTime&) object).getValue());
 		break;
 
 		case STRING:

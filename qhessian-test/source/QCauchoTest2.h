@@ -100,6 +100,24 @@ public:
 		argDouble_3_14159Call();
 
 		//
+		// date
+		//
+		argDate_0Call();
+		argDate_1Call();
+		argDate_2Call();
+
+		//
+		// string
+		//
+		argString_0Call();
+		argString_1Call();
+		argString_31Call();
+		argString_32Call();
+		argString_1023Call();
+		argString_1024Call();
+		argString_65536Call();
+
+		//
 		// Binary
 		//
 		argBinary_0Call();
@@ -708,6 +726,118 @@ public:
 		QHessian::QHessianMethodCall call("argDouble_3_14159");
 		call << Double(3.14159);
 		call.invoke(networkManager, urlTest2, this, SLOT(argDouble_3_14159()), SLOT(error(int, const QString&)));
+	}
+
+		void argDate_0Call() {
+		QDateTime date;
+
+		TEST_START
+
+		using namespace QHessian::in;
+
+		date.setMSecsSinceEpoch(0);
+		QHessian::QHessianMethodCall call("argDate_0");
+		call << DateTime(date);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDate_0()), SLOT(error(int, const QString&)));
+	}
+
+		void argDate_1Call() {
+		QDateTime date;
+
+		TEST_START
+
+		using namespace QHessian::in;
+
+		date.setMSecsSinceEpoch(894621091000LL);
+		QHessian::QHessianMethodCall call("argDate_1");
+		call << DateTime(date);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDate_1()), SLOT(error(int, const QString&)));
+	}
+
+		void argDate_2Call() {
+		QDateTime date;
+
+		TEST_START
+
+		using namespace QHessian::in;
+
+		date.setMSecsSinceEpoch(894621091000LL - (894621091000LL % 60000LL));
+		QHessian::QHessianMethodCall call("argDate_2");
+		call << DateTime(date);
+		call.invoke(networkManager, urlTest2, this, SLOT(argDate_2()), SLOT(error(int, const QString&)));
+	}
+
+	void argString_0Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+		QHessian::QHessianMethodCall call("argString_0");
+		call << String(QString(""));
+		call.invoke(networkManager, urlTest2, this, SLOT(argString_0()), SLOT(error(int, const QString&)));
+	}
+
+	void argString_1Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+		QHessian::QHessianMethodCall call("argString_1");
+		call << String(QString("0"));
+		call.invoke(networkManager, urlTest2, this, SLOT(argString_1()), SLOT(error(int, const QString&)));
+	}
+
+	void argString_31Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+		QHessian::QHessianMethodCall call("argString_31");
+		call << String(QString("0123456789012345678901234567890"));
+		call.invoke(networkManager, urlTest2, this, SLOT(argString_31()), SLOT(error(int, const QString&)));
+	}
+
+	void argString_32Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+		QHessian::QHessianMethodCall call("argString_32");
+		call << String(QString("01234567890123456789012345678901"));
+		call.invoke(networkManager, urlTest2, this, SLOT(argString_32()), SLOT(error(int, const QString&)));
+	}
+
+	void argString_1023Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argString_1023");
+		call << String(generateString(1023));
+		call.invoke(networkManager, urlTest2, this, SLOT(argString_1023()), SLOT(error(int, const QString&)));
+	}
+
+	void argString_1024Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argString_1024");
+		call << String(generateString(1024));
+		call.invoke(networkManager, urlTest2, this, SLOT(argString_1024()), SLOT(error(int, const QString&)));
+	}
+
+	void argString_65536Call() {
+		TEST_START
+
+		using namespace QHessian::in;
+
+
+		QHessian::QHessianMethodCall call("argString_65536");
+		call << String(generateString(65536));
+		call.invoke(networkManager, urlTest2, this, SLOT(argString_65536()), SLOT(error(int, const QString&)));
 	}
 
 	void argBinary_0Call() {
@@ -1332,6 +1462,45 @@ public slots:
 		EXCEPT_TRUE
 	}
 
+	void argDate_0() {
+		EXCEPT_TRUE
+	}
+
+	void argDate_1() {
+		EXCEPT_TRUE
+	}
+
+	void argDate_2() {
+		EXCEPT_TRUE
+	}
+
+	void argString_0() {
+		EXCEPT_TRUE
+	}
+
+	void argString_1() {
+		EXCEPT_TRUE
+	}
+
+	void argString_31() {
+		EXCEPT_TRUE
+	}
+
+	void argString_32() {
+		EXCEPT_TRUE
+	}
+
+	void argString_1023() {
+		EXCEPT_TRUE
+	}
+
+	void argString_1024() {
+		EXCEPT_TRUE
+	}
+
+	void argString_65536() {
+		EXCEPT_TRUE
+	}
 
 	void argBinary_0() {
 		EXCEPT_TRUE
