@@ -14,15 +14,6 @@
 #include <QtCore>
 #include <QtCore/QObject>
 
-#define EXCEPT_TRUE \
-		using namespace QHessian::out; \
-		bool success; \
-        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender(); \
-        parser >> Boolean(success); \
-        COMPARE(success, true); \
-        parser.deleteLater(); \
-		TEST_END
-
 namespace {
 	QByteArray fromString(const QString& string) {
 		return string.toAscii();

@@ -15,6 +15,7 @@
 static const QUrl	urlTest1("http://localhost:8080/test1");
 static const QUrl	urlTest2("http://localhost:8080/test2");
 static const QUrl	fruitUrl("http://localhost:8080/fruit");
+static const QUrl	stringUrl("http://localhost:8080/string");
 
 static QNetworkAccessManager networkManager;
 
@@ -166,5 +167,14 @@ namespace {
 		parser >> EndCollection();
 	}
 }
+
+#define EXCEPT_TRUE \
+		using namespace QHessian::out; \
+		bool success; \
+        QHessian::QHessianReturnParser& parser = *(QHessian::QHessianReturnParser*) QObject::sender(); \
+        parser >> Boolean(success); \
+        COMPARE(success, true); \
+        parser.deleteLater(); \
+		TEST_END
 
 #endif /* QTESTHESSIAN_H_ */
