@@ -187,22 +187,19 @@ inline void QHessianReturnParser::readNext(IProperty& property) {
 inline void QHessianReturnParser::readString(QString& string) {
 	int tag = read();
 
+	string.clear();
+
 	if (tag == NULL_TAG) {
-		string.clear();
 		return;
 	}
 
-	std::string value;
-
     while (tag == STRING_SMALL_TAG) {
-        readString(value);
+        string.append(readStringChunk());
         tag = read();
     }
 
     expect(STRING_BIG_TAG, tag, "QHessianReturnParser::readString: Excepted tag ('S')");
-    readString(value);
-
-    string = QString::fromStdString(value);
+    string.append(readStringChunk());
 }
 
 inline void QHessianReturnParser::readFault() {
@@ -283,26 +280,27 @@ inline void QHessianReturnParser::readDouble(qreal& value) {
     value = dValue;
 }
 
-// Reads UTF-8 encoded string, and appends to value.
-inline void QHessianReturnParser::readString(std::string& value) {
+// Reads UTF-8 encoded string
+inline QString QHessianReturnParser::readStringChunk() {
+	QByteArray data;
+
     std::string::size_type nChar = ((read() & 0xFF) << 8) | (read() & 0xFF);
     for (std::string::size_type i = 0; i < nChar; ++i) {
         int ch = read();
-        value.append(1, static_cast<char>(ch));
 
-        if (ch >= 0x80) {
-            switch (ch & 0xF0) {
-            case 0xF0:
-                value.append(1, static_cast<char>(read()));
-                // FALL THROUGH
-            case 0xE0:
-                value.append(1, static_cast<char>(read()));
-                // FALL THROUGH
-            default:
-                value.append(1, static_cast<char>(read()));
-            }
-        }
+		data.append(ch);
+
+        if ((ch & 0xe0) == 0xc0) {
+        	data.append(read());
+		}
+
+        if ((ch & 0xf0) == 0xe0) {
+			data.append(read());
+			data.append(read());
+		}
     }
+
+    return QString::fromUtf8(data.data(), data.size());
 }
 
 inline void QHessianReturnParser::readByteChunk(QByteArray& bytes) {
@@ -359,11 +357,10 @@ inline void QHessianReturnParser::readMap(out::BeginMap& map) {
     if (tag == 't') {
         read();
 
-        std::string type;
         if (map.getTypeName().length() > 0) {
         	expectStdString(map.getTypeName().toStdString());
         } else {
-        	readString(type);
+        	readStringChunk(); // read type string
         }
     }
 }
@@ -449,12 +446,11 @@ inline void QHessianReturnParser::expectString(const QString& string) {
 
 inline void QHessianReturnParser::expectStdString(const std::string& string) {
 	if (string.length() > 0) {
-        std::string realString;
-        readString(realString);
+        QString realString = readStringChunk();
 
-		if (realString != string) {
+		if (realString != QString::fromStdString(string)) {
 			QString error;
-			error.append("Incompatible types ").append(QString::fromStdString(string)).append(" and ").append(QString::fromStdString(realString));
+			error.append("Incompatible types ").append(QString::fromStdString(string)).append(" and ").append(realString);
 			EXCEPTION(error.toStdString());
 		}
 	}

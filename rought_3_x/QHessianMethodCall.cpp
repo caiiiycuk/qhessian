@@ -14,6 +14,8 @@ namespace QHessian {
 
 namespace {
 
+const int CHUNK_MAX = 65535;
+
 const char*
 countUTF8Char (
         const char* ,
@@ -52,23 +54,79 @@ void QHessianMethodCall::writeStdString(const std::string& name) {
 
 void QHessianMethodCall::writePropetyName(const QString& value) {
 	if (value.length() > 0) {
-		writeString(value.toStdString());
+		writeString(value);
 	}
 }
 
-inline void QHessianMethodCall::writeString(const std::string& value) {
-	const char* pSrcBegin = value.data();
-	const char* pSrcEnd = pSrcBegin + value.size();
-	do {
-		std::string::size_type count;
-		const char* pEnd = countUTF8Char(pSrcBegin, pSrcEnd, count);
-		stream.append((pEnd < pSrcEnd) ? 's' : 'S');
+namespace {
+	inline QString left(const QString& source, int left) {
+		if (left == 0) {
+			return QString();
+		}
 
-    	stream.append(static_cast<char>((count >> 8) & 0xFF));
-    	stream.append(static_cast<char>(count & 0xFF));
-		stream.append(pSrcBegin, count);
-		pSrcBegin = pEnd;
-	} while (pSrcBegin < pSrcEnd);
+		return source.left(left);
+	}
+
+	inline QString right(const QString& source, int right) {
+		if (right == source.size()) {
+			return QString();
+		}
+
+		return source.right(source.size() - right);
+	}
+}
+
+inline void QHessianMethodCall::writeStringImpl(const QString& value) {
+	QString chunk = value;
+
+	do {
+		int count;
+		if (chunk.length() > CHUNK_MAX) {
+			stream.append('s');
+			count = CHUNK_MAX;
+		} else {
+			stream.append('S');
+			count = chunk.length();
+		}
+
+//		qint16 count16 = count;
+		stream.append(static_cast<char>((count >> 8) & 0xFF));
+		stream.append(static_cast<char>(count & 0xFF));
+		stream.append(left(chunk, count).toUtf8());
+
+		chunk = right(chunk, count);
+	} while (chunk.length() > 0);
+
+//	QByteArray dataToWrite = value.toUtf8();
+//	int index = 0;
+//	int chunkIndex = 0;
+//
+//	startChunk(stream, dataToWrite.size());
+//
+//	while (index < dataToWrite.size()) {
+//		if (chunkIndex == CHUNK_MAX) {
+//			startChunk(stream, dataToWrite.size() - index);
+//			chunkIndex = 0;
+//		}
+//
+//		stream.append(dataToWrite.at(index));
+//
+//		chunkIndex++;
+//		index++;
+//	}
+
+//	const char* pSrcBegin = value.data();
+//	const char* pSrcEnd = pSrcBegin + value.size();
+//	do {
+//		std::string::size_type count;
+//		const char* pEnd = countUTF8Char(pSrcBegin, pSrcEnd, count);
+//		stream.append((pEnd < pSrcEnd) ? 's' : 'S');
+//
+//    	stream.append(static_cast<char>((count >> 8) & 0xFF));
+//    	stream.append(static_cast<char>(count & 0xFF));
+//		stream.append(pSrcBegin, count);
+//		pSrcBegin = pEnd;
+//	} while (pSrcBegin < pSrcEnd);
 }
 
 inline void QHessianMethodCall::writeCall() {
@@ -100,7 +158,7 @@ inline void QHessianMethodCall::writeBool(const bool& value) {
 }
 
 inline void QHessianMethodCall::writeString(const QString& value) {
-	writeString(value.toStdString());
+	writeStringImpl(value);
 }
 
 inline void QHessianMethodCall::writeLong(const qint64& value) {
@@ -258,8 +316,6 @@ QHessianMethodCall &QHessianMethodCall::operator<<(const IProperty& object) {
 }
 
 namespace {
-
-const std::string::size_type CHUNK_MAX = 65535;
 
 // Counts the number of UTF-8 encoded characters until the end of the range
 // or the maximum chunk length is reached.  Assumes char is signed.

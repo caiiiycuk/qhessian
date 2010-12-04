@@ -60,8 +60,8 @@ protected:
 	void readDouble(qreal& value);
 
     // Reads UTF-8 encoded string, and appends to value.
-    void readString(QString& string);
-    void readString(std::string& value);
+    void 	readString(QString& string);
+    QString readStringChunk();
 
     // reads bytes chunk for binary
     void readByteChunk(QByteArray& bytes);

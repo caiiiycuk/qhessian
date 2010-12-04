@@ -28,7 +28,7 @@ protected:
 
 	void writeBool(const bool& );
 	void writeString(const QString& );
-	void writeString(const std::string& );
+	void writeStringImpl(const QString& );
 	void writeLong(const qint64& );
 	void writeInt(const qint32& );
 	void writeDouble(const qreal& );
