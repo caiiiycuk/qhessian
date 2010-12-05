@@ -1,5 +1,5 @@
 SOURCES_DIRS = \
-../rought_3_x \ 
+../qhessian \ 
 source
 
 defineReplace(sources) {

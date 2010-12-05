@@ -8,7 +8,7 @@
 #ifndef QTESTHESSIAN_H_
 #define QTESTHESSIAN_H_
 
-#include "../../rought_3_x/QHessian.h"
+#include "../qhessian/QHessian.h"
 #include <QtNetwork/QNetworkAccessManager>
 #include <stdexcept>
 
@@ -48,7 +48,9 @@ public:
 template <typename T1, typename T2>
     void compare(T1 const &, T2 const &, const char *, const char *, const char *, int);
 
-static void compare(QString const& a, QString const& b, const char * actual, const char * excepted, const char *file, int line) {
+namespace {
+
+void compare(QString const& a, QString const& b, const char * actual, const char * excepted, const char *file, int line) {
 	if (a != b) {
 		throw std::runtime_error("Excepted " + std::string(excepted)
 			+ ", actual " + std::string(actual) + ":" + a.toStdString()
@@ -57,7 +59,7 @@ static void compare(QString const& a, QString const& b, const char * actual, con
 	}
 }
 
-static void compare(qint32 const& a, qint32 const& b, const char * actual, const char * excepted, const char *file, int line) {
+void compare(qint32 const& a, qint32 const& b, const char * actual, const char * excepted, const char *file, int line) {
 	if (a != b) {
 		throw std::runtime_error("Excepted " + std::string(excepted)
 			+ ", actual " + std::string(actual) + ":" + QString::number(a).toStdString()
@@ -66,7 +68,7 @@ static void compare(qint32 const& a, qint32 const& b, const char * actual, const
 	}
 }
 
-static void compare(qint64 const& a, qint64 const& b, const char * actual, const char * excepted, const char *file, int line) {
+void compare(qint64 const& a, qint64 const& b, const char * actual, const char * excepted, const char *file, int line) {
 	if (a != b) {
 		throw std::runtime_error("Excepted " + std::string(excepted)
 			+ ", actual " + std::string(actual) + ":" + QString::number(a).toStdString()
@@ -75,7 +77,7 @@ static void compare(qint64 const& a, qint64 const& b, const char * actual, const
 	}
 }
 
-static void compare(qreal const& a, qreal const& b, const char * actual, const char * excepted, const char *file, int line) {
+void compare(qreal const& a, qreal const& b, const char * actual, const char * excepted, const char *file, int line) {
 	if (a != b) {
 		throw std::runtime_error("Excepted " + std::string(excepted)
 			+ ", actual " + std::string(actual) + ":" + QString::number(a).toStdString()
@@ -84,7 +86,7 @@ static void compare(qreal const& a, qreal const& b, const char * actual, const c
 	}
 }
 
-static void compare(QDateTime const& a, QDateTime const& b, const char * actual, const char * excepted, const char *file, int line) {
+void compare(QDateTime const& a, QDateTime const& b, const char * actual, const char * excepted, const char *file, int line) {
 	if (a != b) {
 		throw std::runtime_error("Excepted " + std::string(excepted)
 			+ ", actual " + std::string(actual) + ":" + a.toString().toStdString()
@@ -93,7 +95,7 @@ static void compare(QDateTime const& a, QDateTime const& b, const char * actual,
 	}
 }
 
-static void compare(char const& a, char const& b, const char * actual, const char * excepted, const char *file, int line) {
+void compare(char const& a, char const& b, const char * actual, const char * excepted, const char *file, int line) {
 	if (a != b) {
 		throw std::runtime_error("Excepted " + std::string(excepted)
 			+ ", actual " + std::string(actual) + ":" + QString::number(a).toStdString()
@@ -102,13 +104,15 @@ static void compare(char const& a, char const& b, const char * actual, const cha
 	}
 }
 
-static void compare(bool const& a, bool const& b, const char * actual, const char * excepted, const char *file, int line) {
+void compare(bool const& a, bool const& b, const char * actual, const char * excepted, const char *file, int line) {
 	if (a != b) {
 		throw std::runtime_error("Excepted " + std::string(excepted)
 			+ ", actual " + std::string(actual) + ":" + QString::number(a).toStdString()
 			+ " file " + std::string(file) + ":" + QString::number(b).toStdString()
 			+ " line " + QString::number(line).toStdString());
 	}
+}
+
 }
 
 #define COMPARE(actual, expected) \
