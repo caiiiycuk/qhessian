@@ -149,11 +149,11 @@ inline void QHessianMethodCall::writeDouble(const qreal& value) {
 
 inline void QHessianMethodCall::writeDateTime(const QDateTime& value) {
 	stream.append('d');
-	if (QT_VERSION >= QT_VERSION_CHECK(4, 7, 0)) {
+#if (QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
 		writeLong(value.toMSecsSinceEpoch());
-	} else {
+#else
 		writeLong(((qint64) value.toTime_t()) * 100);
-	}
+#endif
 }
 
 inline void QHessianMethodCall::writeCollection(QHessian::in::BeginCollection& collection) {
