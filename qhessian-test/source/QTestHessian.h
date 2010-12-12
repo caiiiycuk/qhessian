@@ -16,6 +16,7 @@ static const QUrl	urlTest1("http://localhost:8080/test1");
 static const QUrl	urlTest2("http://localhost:8080/test2");
 static const QUrl	fruitUrl("http://localhost:8080/fruit");
 static const QUrl	stringUrl("http://localhost:8080/string");
+static const QUrl	nullUrl("http://localhost:8080/null");
 
 static QNetworkAccessManager networkManager;
 
