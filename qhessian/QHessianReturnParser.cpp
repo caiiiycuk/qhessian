@@ -264,11 +264,11 @@ inline void QHessianReturnParser::readDate(QDateTime& value) {
     expect('d');
     qint64 millis;
     readLong(millis);
-	if (QT_VERSION >= QT_VERSION_CHECK(4, 7, 0)) {
+#if (QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
 		value.setMSecsSinceEpoch(millis);
-	} else {
+#else
 		value.setTime_t(millis / 1000);
-	}
+#endif
 }
 
 // Reads UTF-8 encoded string
