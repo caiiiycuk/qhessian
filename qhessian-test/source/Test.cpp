@@ -13,6 +13,7 @@
 #include "QCauchoTest2.h"
 #include "QFruitTest.h"
 #include "QStringTest.h"
+#include "QNullTest.h"
 
 int main(int argc, char **argv) {
     QCoreApplication app(argc, argv);
@@ -38,6 +39,7 @@ int main(int argc, char **argv) {
     QCauchoTest2 		cauchoTest2;
     QFruitTest			fruitTest;
     QStringTest			stringTest;
+	QNullTest			nullTest;
 
     while (WAIT_FOR_TEST) {
     	QCoreApplication::processEvents();

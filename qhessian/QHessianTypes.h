@@ -99,6 +99,13 @@ public:
 	EmptyProperty(): Property<T, int*>("", 0) {};
 };
 
+class NullProperty: public Property<NULL_VALUE, int*> {
+public:
+	NullProperty(): Property<NULL_VALUE, int*>("", 0) {};
+	NullProperty(QString name): Property<NULL_VALUE, int*>(name, 0) {};
+};
+
+
 class BeginMapProperty: public IProperty {
 protected:
 	QString 	name;
@@ -160,7 +167,7 @@ public:
 
 namespace in {
 
-	typedef EmptyProperty<NULL_VALUE> 					Null;
+	typedef NullProperty			 					Null;
 
 	typedef Property<BOOLEAN, bool> 					Boolean;
 	typedef Property<INTEGER, qint32> 					Integer;
