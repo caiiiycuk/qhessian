@@ -34,6 +34,7 @@ public class QHessianTestServer {
 		root.addServlet(new ServletHolder(new TestHessian2Servlet()), "/test2");
 		root.addServlet(new ServletHolder(new FruitServiceImpl()), "/fruit");
 		root.addServlet(new ServletHolder(new StringServiceImpl()), "/string");
+		root.addServlet(new ServletHolder(new NullServiceImpl()), "/null");
 		
 		server.setHandlers(new Handler[] { root	});
 		
