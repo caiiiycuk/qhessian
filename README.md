@@ -106,6 +106,8 @@ In both namespaces there are properties:
 
 Each propety optionally has 'name', 'value' and 'type' attributes.
 
+The content below is under construction, please wait...
+
 ## Quality assurance ##
 See [QHessian Quality assurance](http://code.google.com/p/qhessian/wiki/QHessian_QA) wiki page.
 
