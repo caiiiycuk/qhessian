@@ -107,41 +107,40 @@ In both namespaces there are properties:
 Each propety optionally has 'name', 'value' and 'type' attributes.
 
 ## Snippets
+  * [Q.1](README.md#q1) How to call void method()
+  * [Q.2](README.md#q2) How to read **Null**
+  * [Q.3](README.md#q3) How to read **Boolean**
+  * [Q.4](README.md#q4) How to read **Integer**
+  * [Q.5](README.md#q5) How to read **Long**
+  * [Q.6](README.md#q6) How to read **Double**
+  * [Q.7](README.md#q7) How to read **Date**
+  * [Q.8](README.md#q8) How to read **String**
+  * [Q.9](README.md#q9) How to read **Binary**
+  * [Q.10](README.md#q10) How to read **untyped collection**
+  * [Q.11](README.md#q11) How to read **typed collection**
+  * [Q.12](README.md#q12) How to read **untyped map**
+  * [Q.13](README.md#q13) How to read **typed map**
+  * [Q.14](README.md#q14) How to read **Object**
+  * [Q.15](README.md#q15) How to read **references**
+  * [Q.16](README.md#q16) How to read **multi-typed object**
+  * [Q.17](README.md#q17) How to write **Null**
+  * [Q.18](README.md#q18) How to write **Boolean**
+  * [Q.19](README.md#q19) How to write **Integer**
+  * [Q.20](README.md#q20) How to write **Long**
+  * [Q.21](README.md#q21) How to write **Double**
+  * [Q.22](README.md#q22) How to write **Date**
+  * [Q.23](README.md#q23) How to write **String**
+  * [Q.24](README.md#q24) How to write **Binary**
+  * [Q.25](README.md#q25) How to write **untyped collection**
+  * [Q.26](README.md#q26) How to write **typed collection** (String`[``]`)
+  * [Q.27](README.md#q27) How to write **untyped map**
+  * [Q.28](README.md#q28) How to write **typed map** (hashtable)
+  * [Q.29](README.md#q29) How to write **Object**
+  * [Q.30](README.md#q30) How to write **references**
+  * [Q.31](README.md#q31) How to call int method(int, int)
 
-  * [Q.1](README.md#Q.1) How to call void method()
-  * [Q.2](README.md#Q.2) How to read **Null**
-  * [Q.3](FAQ#Q.3.md) How to read **Boolean**
-  * [Q.4](FAQ#Q.4.md) How to read **Integer**
-  * [Q.5](FAQ#Q.5.md) How to read **Long**
-  * [Q.6](FAQ#Q.6.md) How to read **Double**
-  * [Q.7](FAQ#Q.7.md) How to read **Date**
-  * [Q.8](FAQ#Q.8.md) How to read **String**
-  * [Q.9](FAQ#Q.9.md) How to read **Binary**
-  * [Q.10](FAQ#Q.10.md) How to read **untyped collection**
-  * [Q.11](FAQ#Q.11.md) How to read **typed collection**
-  * [Q.12](FAQ#Q.12.md) How to read **untyped map**
-  * [Q.13](FAQ#Q.13.md) How to read **typed map**
-  * [Q.14](FAQ#Q.14.md) How to read **Object**
-  * [Q.15](FAQ#Q.15.md) How to read **references**
-  * [Q.16](FAQ#Q.16.md) How to read **multi-typed object**
-  * [Q.17](FAQ#Q.17.md) How to write **Null**
-  * [Q.18](FAQ#Q.18.md) How to write **Boolean**
-  * [Q.19](FAQ#Q.19.md) How to write **Integer**
-  * [Q.20](FAQ#Q.20.md) How to write **Long**
-  * [Q.21](FAQ#Q.21.md) How to write **Double**
-  * [Q.22](FAQ#Q.22.md) How to write **Date**
-  * [Q.23](FAQ#Q.23.md) How to write **String**
-  * [Q.24](FAQ#Q.24.md) How to write **Binary**
-  * [Q.25](FAQ#Q.25.md) How to write **untyped collection**
-  * [Q.26](FAQ#Q.26.md) How to write **typed collection** (String`[``]`)
-  * [Q.27](FAQ#Q.27.md) How to write **untyped map**
-  * [Q.28](FAQ#Q.28.md) How to write **typed map** (hashtable)
-  * [Q.29](FAQ#Q.29.md) How to write **Object**
-  * [Q.30](FAQ#Q.30.md) How to write **references**
-  * [Q.31](FAQ#Q.31.md) How to call int method(int, int)
-
-## Q.1 ##
-### How to call void method() ###
+## Q.1
+### How to call void method()
 <table cellpadding='0' border='1' cellspacing='0'>
 <tr>
 <td>Java <b>server</b> example</td><td>QHessian <b>client</b> example</td>
@@ -172,8 +171,8 @@ Each propety optionally has 'name', 'value' and 'type' attributes.
 </tr>
 </table>
 
-## Q.2 ##
-### How to read **Null** ###
+## Q.2
+### How to read **Null**
 <table cellpadding='0' border='1' cellspacing='0'>
 <tr>
 <td>Java <b>server</b> example</td><td>QHessian <b>client</b> example</td>
@@ -212,8 +211,8 @@ Each propety optionally has 'name', 'value' and 'type' attributes.
 </tr>
 </table>
 
-## Q.3 ##
-### How to read **Boolean** ###
+## Q.3
+### How to read **Boolean**
 <table cellpadding='0' border='1' cellspacing='0'>
 <tr>
 <td>Java <b>server</b> example</td><td>QHessian <b>client</b> example</td>
